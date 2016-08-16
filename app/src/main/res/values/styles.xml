@@ -13,4 +13,10 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="SmallGrayText">
+        <item name="android:textColor">@color/lighterGray</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
 </resources>

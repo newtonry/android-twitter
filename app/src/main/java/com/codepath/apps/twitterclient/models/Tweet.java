@@ -1,5 +1,7 @@
 package com.codepath.apps.twitterclient.models;
 
+import com.codepath.apps.twitterclient.CustomUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +33,10 @@ public class Tweet {
 
     public User getUser() {
         return user;
+    }
+
+    public String getTimeDifference() {
+        return CustomUtils.getRelativeTimeAgo(createdAt);
     }
 
     public Tweet() {

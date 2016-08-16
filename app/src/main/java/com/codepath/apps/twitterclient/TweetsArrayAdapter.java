@@ -1,6 +1,8 @@
 package com.codepath.apps.twitterclient;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
  * Created by rnewton on 8/15/16.
@@ -26,8 +29,11 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
     }
 
     @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
-    @BindView(R.id.tvUsername) TextView tvUserName;
+    @BindView(R.id.tvUserName) TextView tvUserName;
     @BindView(R.id.tvBody) TextView tvBody;
+    @BindView(R.id.tvTime) TextView tvTime;
+    @BindView(R.id.tvName) TextView tvName;
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -39,11 +45,31 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
         }
         ButterKnife.bind(this, convertView);
 
+        tvName.setText(tweet.getUser().getName());
         tvUserName.setText(tweet.getUser().getScreenName());
         tvBody.setText(tweet.getBody());
+        tvTime.setText(tweet.getTimeDifference());
+
+
         ivProfileImage.setImageResource(0);
-        Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(ivProfileImage);
+        Picasso.with(getContext())
+                .load(tweet.getUser().getProfileImageUrl())
+                .transform(new RoundedCornersTransformation(3, 3))
+                .into(ivProfileImage);
 
         return convertView;
     }
+
+    private void setupFonts() {
+
+        AssetManager assets = getContext().getAssets();
+
+        tvName.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neu Bold.ttf"));
+        tvBody.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
+        tvUserName.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
+        tvTime.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
+
+
+    }
+
 }

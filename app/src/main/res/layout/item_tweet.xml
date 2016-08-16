@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="10dp"
+    android:background="@android:color/white"
     >
 
 
@@ -12,29 +13,64 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#ff0000"
         android:layout_marginRight="5dp"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvUsername"
-        android:layout_alignParentTop="true"
+        android:text="Philip Bloom"
+        android:id="@+id/tvName"
+        android:layout_alignTop="@id/ivProfileImage"
         android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_alignRight="@+id/tvBody"
-        android:layout_alignEnd="@+id/tvBody" />
+        android:layout_marginLeft="2dp"
+        android:textColor="@color/blackTextLarge"
+        android:textStyle="bold"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="Guy comes to my door selling magazines. I told him we are in a digital world. He persists."
         android:id="@+id/tvBody"
-        android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_alignBottom="@+id/ivProfileImage"
+        android:layout_alignLeft="@id/tvName"
+        android:layout_below="@id/tvName"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:textColor="@color/blackTextSmall"
+        android:layout_marginTop="4dp"
+        />
+
+    <TextView
+        style="@style/SmallGrayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="\@PhilipBloom"
+        android:id="@+id/tvUserName"
+        android:layout_toRightOf="@id/tvName"
+        android:layout_alignBottom="@id/tvName"
+        android:layout_alignTop="@id/tvName"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+
+        />
+
+    <TextView
+        style="@style/SmallGrayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="3h"
+        android:id="@+id/tvTime"
+        android:layout_alignTop="@+id/tvUserName"
+        android:layout_alignBottom="@id/tvUserName"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+
+
+        />
 
 
 </RelativeLayout>
