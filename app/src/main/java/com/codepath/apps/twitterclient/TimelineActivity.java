@@ -35,10 +35,34 @@ public class TimelineActivity extends AppCompatActivity {
         tweets = new ArrayList<>();
         adapter = new TweetsArrayAdapter(this, tweets);
         lvTweets.setAdapter(adapter);
-        lvTweets.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        lvTweets.setLayoutManager(linearLayoutManager);
+
+        lvTweets.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                client.getHomeTimeline(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                        tweets.addAll(Tweet.fromJSONArray(json));
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        Log.d("test", errorResponse.toString());
+                    }
+                }, getLastId());
+            }
+        });
 
         client = TwitterApplication.getRestClient();
         populateTimeline();
+    }
+
+
+    private Long getLastId() {
+        return tweets.get(tweets.size() - 1).getUid();
     }
 
     private void populateTimeline() {

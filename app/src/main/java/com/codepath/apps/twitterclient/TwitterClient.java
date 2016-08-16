@@ -35,6 +35,15 @@ public class TwitterClient extends OAuthBaseClient {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
 	}
 
+	public void getHomeTimeline(AsyncHttpResponseHandler callback, Long maxId) {
+		RequestParams params = new RequestParams();
+		params.put("count", 25);
+		params.put("since_id", 1);
+		params.put("max_id", maxId);
+		getClient().get(REST_URL + TIMELINE_URL, params, callback);
+
+	}
+
 	public void getHomeTimeline(AsyncHttpResponseHandler callback) {
 		RequestParams params = new RequestParams();
 		params.put("count", 25);
@@ -42,7 +51,6 @@ public class TwitterClient extends OAuthBaseClient {
 		getClient().get(REST_URL + TIMELINE_URL, params, callback);
 
 	}
-
 
 
 
