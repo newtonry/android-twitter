@@ -1,12 +1,11 @@
 package com.codepath.apps.twitterclient;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.graphics.Typeface;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,54 +21,77 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 /**
  * Created by rnewton on 8/15/16.
  */
-public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
+public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.ViewHolder> {
+
+    private List<Tweet> tweets;
+    private Context context;
 
     public TweetsArrayAdapter(Context context, List<Tweet> tweets) {
-        super(context, android.R.layout.simple_list_item_1);
+        this.tweets = tweets;
+        this.context = context;
     }
 
-    @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
-    @BindView(R.id.tvUserName) TextView tvUserName;
-    @BindView(R.id.tvBody) TextView tvBody;
-    @BindView(R.id.tvTime) TextView tvTime;
-    @BindView(R.id.tvName) TextView tvName;
 
+    private Context getContext() {
+        return context;
+    }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        View tweetView = LayoutInflater.from(context).inflate(R.layout.item_tweet, parent, false);
+        ViewHolder viewHolder = new ViewHolder(tweetView);
+        return viewHolder;
+    }
 
-        Tweet tweet = getItem(position);
-
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_tweet, parent, false);
-        }
-        ButterKnife.bind(this, convertView);
-
-        tvName.setText(tweet.getUser().getName());
-        tvUserName.setText(tweet.getUser().getScreenName());
-        tvBody.setText(tweet.getBody());
-        tvTime.setText(tweet.getTimeDifference());
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        Tweet tweet = tweets.get(position);
+        viewHolder.tvName.setText(tweet.getUser().getName());
+        viewHolder.tvUserName.setText(tweet.getUser().getScreenName());
+        viewHolder.tvBody.setText(tweet.getBody());
+        viewHolder.tvTime.setText(tweet.getTimeDifference());
 
 
-        ivProfileImage.setImageResource(0);
+        viewHolder.ivProfileImage.setImageResource(0);
         Picasso.with(getContext())
                 .load(tweet.getUser().getProfileImageUrl())
                 .transform(new RoundedCornersTransformation(3, 3))
-                .into(ivProfileImage);
+                .into(viewHolder.ivProfileImage);
 
-        return convertView;
+        viewHolder.setupFonts(getContext());
     }
 
-    private void setupFonts() {
+    @Override
+    public int getItemCount() {
+        Log.v("s", Integer.toString(tweets.size()));
+        return tweets.size();
+    }
 
-        AssetManager assets = getContext().getAssets();
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        tvName.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neu Bold.ttf"));
-        tvBody.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
-        tvUserName.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
-        tvTime.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
+        @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+        @BindView(R.id.tvUserName) TextView tvUserName;
+        @BindView(R.id.tvBody) TextView tvBody;
+        @BindView(R.id.tvTime) TextView tvTime;
+        @BindView(R.id.tvName) TextView tvName;
 
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        private void setupFonts(Context context) {
+//            AssetManager assets = context.getAssets();
+//            tvName.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neu Bold.ttf"));
+//            tvBody.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
+//            tvUserName.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
+//            tvTime.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
+        }
 
     }
+
+
 
 }

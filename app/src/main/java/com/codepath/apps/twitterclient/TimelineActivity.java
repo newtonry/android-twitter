@@ -2,8 +2,9 @@ package com.codepath.apps.twitterclient;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ListView;
 
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -22,7 +23,7 @@ public class TimelineActivity extends AppCompatActivity {
     private TwitterClient client;
     private TweetsArrayAdapter adapter;
     private ArrayList<Tweet> tweets;
-    @BindView(R.id.lvTweets) ListView lvTweets;
+    @BindView(R.id.lvTweets) RecyclerView lvTweets;
 
 
     @Override
@@ -34,6 +35,7 @@ public class TimelineActivity extends AppCompatActivity {
         tweets = new ArrayList<>();
         adapter = new TweetsArrayAdapter(this, tweets);
         lvTweets.setAdapter(adapter);
+        lvTweets.setLayoutManager(new LinearLayoutManager(this));
 
         client = TwitterApplication.getRestClient();
         populateTimeline();
@@ -43,7 +45,8 @@ public class TimelineActivity extends AppCompatActivity {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                adapter.addAll(Tweet.fromJSONArray(json));
+                tweets.addAll(Tweet.fromJSONArray(json));
+                adapter.notifyDataSetChanged();
             }
 
             @Override
