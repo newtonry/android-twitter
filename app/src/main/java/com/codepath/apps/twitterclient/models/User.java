@@ -2,16 +2,20 @@ package com.codepath.apps.twitterclient.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 /**
  * Created by rnewton on 8/15/16.
  */
+
+
+@Parcel
 public class User {
 
-    private String name;
-    private long uid;
-    private String screenName;
-    private String profileImageUrl;
+    String name;
+    long uid;
+    String screenName;
+    String profileImageUrl;
 
     public String getName() {
         return name;
@@ -29,6 +33,10 @@ public class User {
         return profileImageUrl;
     }
 
+    public User() {
+
+    }
+
     public static User fromJSON(JSONObject jsonObject) {
         User user = new User();
         try {
@@ -42,6 +50,4 @@ public class User {
 
         return user;
     }
-
-
 }

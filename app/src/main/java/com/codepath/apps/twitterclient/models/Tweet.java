@@ -5,6 +5,7 @@ import com.codepath.apps.twitterclient.CustomUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
@@ -13,11 +14,12 @@ import java.util.ArrayList;
  */
 
 
+@Parcel
 public class Tweet {
-    private String body;
-    private Long uid;
-    private User user;
-    private String createdAt;
+    String body;
+    Long uid;
+    User user;
+    String createdAt;
 
     public String getCreatedAt() {
         return createdAt;
@@ -75,5 +77,4 @@ public class Tweet {
 
         return tweets;
     }
-
 }

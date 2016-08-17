@@ -1,5 +1,6 @@
 package com.codepath.apps.twitterclient;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -10,9 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.codepath.apps.twitterclient.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,9 +47,7 @@ public class NewTweetActivity extends AppCompatActivity {
 
         etMessage.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -60,9 +61,7 @@ public class NewTweetActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
+            public void afterTextChanged(Editable editable) {}
         });
     }
 
@@ -85,18 +84,17 @@ public class NewTweetActivity extends AppCompatActivity {
         twitterClient.postNewStatus(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.v("ss", response.toString());
-                super.onSuccess(statusCode, headers, response);
+                Tweet tweet = Tweet.fromJSON(response);
+                Intent data = new Intent();
+                data.putExtra("tweet", Parcels.wrap(tweet));
+                setResult(200, data);
+                finish();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("test", errorResponse.toString());
+                Log.d("error", errorResponse.toString());
             }
         }, status);
-
-
     }
-
-
 }

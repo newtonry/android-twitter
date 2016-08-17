@@ -12,6 +12,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -91,8 +92,15 @@ public class TimelineActivity extends AppCompatActivity {
 
     private void launchComposeView() {
         Intent i = new Intent(TimelineActivity.this, NewTweetActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 200);
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 200) {
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+            tweets.add(0, tweet);
+            adapter.notifyDataSetChanged();
+        }
+    }
 }
