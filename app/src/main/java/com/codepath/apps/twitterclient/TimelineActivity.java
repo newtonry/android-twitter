@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
 
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -25,14 +27,18 @@ public class TimelineActivity extends AppCompatActivity {
     private TwitterClient client;
     private TweetsArrayAdapter adapter;
     private ArrayList<Tweet> tweets;
-    @BindView(R.id.lvTweets) RecyclerView lvTweets;
 
+    @BindView(R.id.lvTweets) RecyclerView lvTweets;
+//    @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
         ButterKnife.bind(this);
+
+
+//        setSupportActionBar(toolbar);
 
 //        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 //        getSupportActionBar().setCustomView(R.layout.timeline_actionbar);
@@ -66,9 +72,15 @@ public class TimelineActivity extends AppCompatActivity {
         populateTimeline();
 
 
-        launchComposeView();
+//        launchComposeView();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_timeline, menu);
+        return true;
+    }
 
     private Long getLastId() {
         return tweets.get(tweets.size() - 1).getUid();
@@ -90,11 +102,6 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
-    private void launchComposeView() {
-        Intent i = new Intent(TimelineActivity.this, NewTweetActivity.class);
-        startActivityForResult(i, 200);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 200) {
@@ -102,5 +109,11 @@ public class TimelineActivity extends AppCompatActivity {
             tweets.add(0, tweet);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    public void launchComposeView(View view) {
+        Log.v("log", "launching new tweet");
+        Intent i = new Intent(TimelineActivity.this, NewTweetActivity.class);
+        startActivityForResult(i, 200);
     }
 }

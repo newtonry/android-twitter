@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content" android:layout_height="wrap_content"
     android:padding="10dp"
-    android:background="@android:color/white"
+    android:background="@drawable/basic_bottom_border"
     >
 
 
@@ -35,10 +35,12 @@
         android:id="@+id/tvBody"
         android:layout_alignLeft="@id/tvName"
         android:layout_below="@id/tvName"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:textColor="@color/twitterBlack"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="5dp"
+        android:lineSpacingExtra="3dp"
+        android:textSize="12sp"
         />
 
     <TextView

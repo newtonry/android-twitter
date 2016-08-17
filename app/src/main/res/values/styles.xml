@@ -1,11 +1,16 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        <item name="colorPrimaryDark">@color/twitterWhite</item>
+        <item name="android:statusBarColor">@color/twitterPrimaryBlue</item>
+
     </style>
 
     <!-- Application theme. -->
@@ -15,7 +20,7 @@
 
     <style name="SmallGrayText">
         <item name="android:textColor">@color/twitterLightGray</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
     <style name="EnabledButton">
