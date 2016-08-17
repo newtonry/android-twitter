@@ -51,6 +51,13 @@ public class TwitterClient extends OAuthBaseClient {
 		getClient().get(REST_URL + TIMELINE_URL, params, callback);
 	}
 
+	public void getRecentPosts(AsyncHttpResponseHandler callback, Long minId) {
+		RequestParams params = new RequestParams();
+		params.put("count", 25);
+		params.put("since_id", minId);
+		getClient().get(REST_URL + TIMELINE_URL, params, callback);
+	}
+
 	public void postNewStatus(AsyncHttpResponseHandler callback, String status) {
 		RequestParams params = new RequestParams();
 		params.put("status", status);

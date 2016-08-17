@@ -2,6 +2,7 @@ package com.codepath.apps.twitterclient;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,20 +30,13 @@ public class TimelineActivity extends AppCompatActivity {
     private ArrayList<Tweet> tweets;
 
     @BindView(R.id.lvTweets) RecyclerView lvTweets;
-//    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
         ButterKnife.bind(this);
-
-
-//        setSupportActionBar(toolbar);
-
-//        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-//        getSupportActionBar().setCustomView(R.layout.timeline_actionbar);
-
 
         tweets = new ArrayList<>();
         adapter = new TweetsArrayAdapter(this, tweets);
@@ -68,12 +62,49 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
+
+        setupRefresher();
+
         client = TwitterApplication.getRestClient();
         populateTimeline();
 
 
 //        launchComposeView();
     }
+
+
+    private void setupRefresher() {
+
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                Long mostRecentId = tweets.get(0).getUid();
+                client.getRecentPosts(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                        tweets.addAll(Tweet.fromJSONArray(json));
+                        adapter.notifyDataSetChanged();
+                        swipeContainer.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        Log.d("test", errorResponse.toString());
+                    }
+                }, mostRecentId);
+            }
+        });
+        swipeContainer.setColorSchemeResources(R.color.twitterPrimaryBlue);
+
+    }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
