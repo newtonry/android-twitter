@@ -98,4 +98,10 @@ public class NewTweetActivity extends AppCompatActivity {
             }
         }, status);
     }
+
+    public void closeNewTweetActivity(View view) {
+        Intent data = new Intent();
+        setResult(100, data);
+        finish();
+    }
 }

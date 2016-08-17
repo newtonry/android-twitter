@@ -33,6 +33,7 @@
             android:layout_alignParentEnd="true"
             android:background="@null"
             android:tint="@color/twitterPrimaryBlue"
+            android:onClick="closeNewTweetActivity"
             />
 
         <EditText
@@ -55,8 +56,6 @@
             />
 
     </RelativeLayout>
-
-
 
     <RelativeLayout
         android:layout_width="match_parent"
