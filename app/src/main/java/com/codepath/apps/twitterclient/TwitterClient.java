@@ -30,6 +30,7 @@ public class TwitterClient extends OAuthBaseClient {
 
 	static String TIMELINE_URL = "statuses/home_timeline.json";
 
+	static String NEW_STATUS_URL = "statuses/update.json";
 
 	public TwitterClient(Context context) {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
@@ -41,7 +42,6 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("since_id", 1);
 		params.put("max_id", maxId);
 		getClient().get(REST_URL + TIMELINE_URL, params, callback);
-
 	}
 
 	public void getHomeTimeline(AsyncHttpResponseHandler callback) {
@@ -49,8 +49,16 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("count", 25);
 		params.put("since_id", 1);
 		getClient().get(REST_URL + TIMELINE_URL, params, callback);
+	}
+
+	public void postNewStatus(AsyncHttpResponseHandler callback, String status) {
+		RequestParams params = new RequestParams();
+		params.put("status", status);
+		getClient().post(REST_URL + NEW_STATUS_URL, params, callback);
 
 	}
+
+
 
 
 

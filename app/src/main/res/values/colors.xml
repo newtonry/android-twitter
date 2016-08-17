@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blackTextLarge">#292f33</color>
-    <color name="blackTextSmall">#292f33</color>
-    <color name="lighterGray">#aab8c2</color>
-    <color name="twitterBlue">#1b95e0</color>
+    <color name="twitterPrimaryBlue">#1DA1F2</color>
+    <color name="twitterBlack">#14171A</color>
+    <color name="twitterDarkGray">#657786</color>
+    <color name="twitterLightGray">#AAB8C2</color>
+    <color name="twitterExtraLightGray">#E1E8ED</color>
+    <color name="twitterExtraExtraLightGray">#F5F8FA</color>
+    <color name="twitterWhite">#FFFFFF</color>
 </resources>

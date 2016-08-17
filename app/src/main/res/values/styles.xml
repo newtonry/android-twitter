@@ -14,9 +14,19 @@
     </style>
 
     <style name="SmallGrayText">
-        <item name="android:textColor">@color/lighterGray</item>
+        <item name="android:textColor">@color/twitterLightGray</item>
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="EnabledButton">
+        <item name="android:textColor">@color/twitterWhite</item>
+        <item name="android:background">@color/twitterPrimaryBlue</item>
+        <item name="android:enabled">true</item>
+    </style>
 
+    <style name="DisabledButton">
+        <item name="android:textColor">@color/twitterLightGray</item>
+        <item name="android:background">@color/twitterWhite</item>
+        <item name="android:enabled">false</item>
+    </style>
 </resources>

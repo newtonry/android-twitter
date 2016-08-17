@@ -1,6 +1,8 @@
 package com.codepath.apps.twitterclient;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -83,11 +85,11 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         }
 
         private void setupFonts(Context context) {
-//            AssetManager assets = context.getAssets();
-//            tvName.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neu Bold.ttf"));
-//            tvBody.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
-//            tvUserName.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
-//            tvTime.setTypeface(Typeface.createFromAsset(assets, "HelveticaNeueLt.ttf"));
+            AssetManager assets = context.getAssets();
+            tvName.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neue LT Pro 75 Bold.ttf"));
+            tvBody.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neue LT Pro 55 Roman.ttf"));
+            tvUserName.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neue LT Pro 55 Roman.ttf"));
+            tvTime.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neue LT Pro 55 Roman.ttf"));
         }
 
     }

@@ -1,5 +1,6 @@
 package com.codepath.apps.twitterclient;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +33,10 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
         ButterKnife.bind(this);
 
+//        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+//        getSupportActionBar().setCustomView(R.layout.timeline_actionbar);
+
+
         tweets = new ArrayList<>();
         adapter = new TweetsArrayAdapter(this, tweets);
         lvTweets.setAdapter(adapter);
@@ -58,6 +63,9 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApplication.getRestClient();
         populateTimeline();
+
+
+        launchComposeView();
     }
 
 
@@ -79,8 +87,12 @@ public class TimelineActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
+
+    private void launchComposeView() {
+        Intent i = new Intent(TimelineActivity.this, NewTweetActivity.class);
+        startActivity(i);
+    }
+
 
 }
