@@ -43,6 +43,15 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         Context context = parent.getContext();
         View tweetView = LayoutInflater.from(context).inflate(R.layout.item_tweet, parent, false);
         ViewHolder viewHolder = new ViewHolder(tweetView);
+
+        tweetView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimelineActivity act = (TimelineActivity) getContext();
+                act.launchDetailedActivity();
+            }
+        });
+
         return viewHolder;
     }
 
@@ -71,6 +80,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
 
         @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
         @BindView(R.id.tvUserName) TextView tvUserName;

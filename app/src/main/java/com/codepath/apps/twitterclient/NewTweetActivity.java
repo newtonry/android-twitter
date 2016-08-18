@@ -34,7 +34,6 @@ public class NewTweetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_tweet);
         ButterKnife.bind(this);
         setupListeners();
-//        getSupportActionBar().hide();
     }
 
     private void setupListeners() {
@@ -42,7 +41,6 @@ public class NewTweetActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 submitTweet();
-
             }
         });
 

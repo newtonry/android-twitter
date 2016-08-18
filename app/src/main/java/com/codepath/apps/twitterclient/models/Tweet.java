@@ -14,12 +14,19 @@ import java.util.ArrayList;
  */
 
 
+
+//@Table(name = "Tweets")
 @Parcel
 public class Tweet {
+//    @Column(name = "body") String body;
+//    @Column(name = "uid", unique = true) Long uid;
+//    @Column(name = "user", onUpdate = Column.ForeignKeyAction.CASCADE) User user;
+//    @Column(name = "createdAt") String createdAt;
     String body;
     Long uid;
     User user;
     String createdAt;
+
 
     public String getCreatedAt() {
         return createdAt;

@@ -4,9 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/twitterWhite">
 
-
-
-
     <ImageView
         android:layout_width="50dp"
         android:layout_height="40dp"
@@ -38,6 +35,4 @@
         android:layout_alignParentEnd="true"
         android:tint="@color/twitterPrimaryBlue"
         />
-
-
 </RelativeLayout>

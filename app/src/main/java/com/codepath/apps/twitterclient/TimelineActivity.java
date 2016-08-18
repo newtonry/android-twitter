@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +42,46 @@ public class TimelineActivity extends AppCompatActivity {
         tweets = new ArrayList<>();
         adapter = new TweetsArrayAdapter(this, tweets);
         lvTweets.setAdapter(adapter);
+
+        setupRefresher();
+        setupScrollListener();
+
+        client = TwitterApplication.getRestClient();
+        populateTimeline();
+    }
+
+
+    private void setupRefresher() {
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                Long mostRecentId = tweets.get(0).getUid();
+                client.getRecentPosts(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                        ArrayList<Tweet> newTweets = Tweet.fromJSONArray(json);
+                        Collections.reverse(newTweets);
+                        Collections.reverse(tweets);
+                        tweets.addAll(newTweets);
+                        Collections.reverse(tweets);
+                        adapter.notifyDataSetChanged();
+                        swipeContainer.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        Log.d("error", errorResponse.toString());
+                    }
+                }, mostRecentId);
+            }
+        });
+        swipeContainer.setColorSchemeResources(R.color.twitterPrimaryBlue);
+    }
+
+    private void setupScrollListener() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         lvTweets.setLayoutManager(linearLayoutManager);
 
@@ -61,50 +102,7 @@ public class TimelineActivity extends AppCompatActivity {
                 }, getLastId());
             }
         });
-
-
-        setupRefresher();
-
-        client = TwitterApplication.getRestClient();
-        populateTimeline();
-
-
-//        launchComposeView();
     }
-
-
-    private void setupRefresher() {
-
-
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
-                Long mostRecentId = tweets.get(0).getUid();
-                client.getRecentPosts(new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                        tweets.addAll(Tweet.fromJSONArray(json));
-                        adapter.notifyDataSetChanged();
-                        swipeContainer.setRefreshing(false);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        Log.d("test", errorResponse.toString());
-                    }
-                }, mostRecentId);
-            }
-        });
-        swipeContainer.setColorSchemeResources(R.color.twitterPrimaryBlue);
-
-    }
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -150,4 +148,13 @@ public class TimelineActivity extends AppCompatActivity {
         startActivityForResult(i, 200);
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
     }
+
+    public void launchDetailedActivity() {
+        Log.v("log", "launching detailed");
+        Intent i = new Intent(TimelineActivity.this, DetailedTweetActivity.class);
+        startActivityForResult(i, 200);
+        overridePendingTransition(R.anim.slide_up, R.anim.no_change);
+    }
+
+
 }

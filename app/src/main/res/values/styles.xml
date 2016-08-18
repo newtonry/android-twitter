@@ -34,4 +34,17 @@
         <item name="android:background">@color/twitterWhite</item>
         <item name="android:enabled">false</item>
     </style>
+
+    <style name="ActionBarImageButton">
+        <item name="android:foregroundTint">@color/twitterPrimaryBlue</item>
+        <item name="android:backgroundTint">@color/twitterWhite</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_centerVertical">true</item>
+
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:tint">@color/twitterPrimaryBlue</item>
+    </style>
+
+
 </resources>

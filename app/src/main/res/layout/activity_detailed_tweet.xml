@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codepath.apps.twitterclient.TimelineActivity">
+    tools:context="com.codepath.apps.twitterclient.DetailedTweetActivity">
+
 
     <RelativeLayout
         android:id="@+id/toolbar"
@@ -18,10 +18,11 @@
         android:layout_alignParentRight="true"
         >
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:id="@+id/ivIcon"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTweet"
+            android:text="@string/tweet"
             android:src="@drawable/twitter_icon"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
@@ -30,8 +31,9 @@
         <ImageButton
             style="@style/ActionBarImageButton"
             android:id="@+id/imageButton4"
-            android:src="@drawable/addperson"
+            android:src="@drawable/ic_keyboard_arrow_left_black_48dp"
             android:layout_alignParentLeft="true"
+            android:onClick="closeDetailedTweetActivity"
             />
 
         <ImageButton
@@ -39,7 +41,6 @@
             android:id="@+id/btnNewTweet"
             android:src="@drawable/newmessage"
             android:layout_alignParentRight="true"
-            android:onClick="launchComposeView"
             />
 
 
@@ -53,24 +54,6 @@
             />
     </RelativeLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipeContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        >
 
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lvTweets"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>
