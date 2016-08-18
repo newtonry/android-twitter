@@ -42,13 +42,13 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View tweetView = LayoutInflater.from(context).inflate(R.layout.item_tweet, parent, false);
-        ViewHolder viewHolder = new ViewHolder(tweetView);
+        final ViewHolder viewHolder = new ViewHolder(tweetView);
 
         tweetView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimelineActivity act = (TimelineActivity) getContext();
-                act.launchDetailedActivity();
+                act.launchDetailedActivity(viewHolder.tweetId);
             }
         });
 
@@ -62,7 +62,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.tvUserName.setText(tweet.getUser().getScreenName());
         viewHolder.tvBody.setText(tweet.getBody());
         viewHolder.tvTime.setText(tweet.getTimeDifference());
-
+        viewHolder.tweetId = tweet.getUid();
 
         viewHolder.ivProfileImage.setImageResource(0);
         Picasso.with(getContext())
@@ -81,7 +81,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-
+        Long tweetId;
         @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
         @BindView(R.id.tvUserName) TextView tvUserName;
         @BindView(R.id.tvBody) TextView tvBody;

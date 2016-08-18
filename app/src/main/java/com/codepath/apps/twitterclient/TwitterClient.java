@@ -29,8 +29,10 @@ public class TwitterClient extends OAuthBaseClient {
 	public static final String REST_CALLBACK_URL = "oauth://cptwitterclient"; // Change this (here and in manifest)
 
 	static String TIMELINE_URL = "statuses/home_timeline.json";
-
 	static String NEW_STATUS_URL = "statuses/update.json";
+	static String TWEET_BY_ID = "statuses/show.json";
+
+
 
 	public TwitterClient(Context context) {
 		super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
@@ -65,6 +67,11 @@ public class TwitterClient extends OAuthBaseClient {
 
 	}
 
+	public void getTweetById(AsyncHttpResponseHandler callback, Long id) {
+		RequestParams params = new RequestParams();
+		params.put("id", id);
+		getClient().get(REST_URL + TWEET_BY_ID, params, callback);
+	}
 
 
 

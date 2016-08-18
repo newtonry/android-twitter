@@ -26,6 +26,7 @@ public class Tweet {
     Long uid;
     User user;
     String createdAt;
+    String mediaUrl;
 
 
     public String getCreatedAt() {
@@ -35,15 +36,15 @@ public class Tweet {
     public String getBody() {
         return body;
     }
-
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
     public Long getUid() {
         return uid;
     }
-
     public User getUser() {
         return user;
     }
-
     public String getTimeDifference() {
         return CustomUtils.getRelativeTimeAgo(createdAt);
     }
@@ -60,9 +61,17 @@ public class Tweet {
             tweet.uid = jsonObject.getLong("id");
             tweet.createdAt = jsonObject.getString("created_at");
 
+            tweet.mediaUrl = "";
+            if (jsonObject.has("extended_entities")) {
+                JSONObject extendedEntities = jsonObject.getJSONObject("extended_entities");
+                JSONArray media = extendedEntities.getJSONArray("media");
+                if (media.length() > 0) {
+                    JSONObject firstMedia = media.getJSONObject(0);
+                    tweet.mediaUrl = firstMedia.getString("media_url");
+                }
+            }
 
             tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

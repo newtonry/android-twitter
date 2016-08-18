@@ -149,9 +149,10 @@ public class TimelineActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
     }
 
-    public void launchDetailedActivity() {
+    public void launchDetailedActivity(Long tweetId) {
         Log.v("log", "launching detailed");
         Intent i = new Intent(TimelineActivity.this, DetailedTweetActivity.class);
+        i.putExtra("tweetId", tweetId);
         startActivityForResult(i, 200);
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
     }

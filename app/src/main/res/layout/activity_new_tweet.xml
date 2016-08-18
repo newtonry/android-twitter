@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
+        android:layout_above="@+id/vgBottom"
         >
 
         <ImageView
@@ -51,10 +52,10 @@
             android:textColorHint="@color/twitterLightGray"
             android:hint="@string/what_s_happening"
             android:textCursorDrawable="@drawable/cursor_drawable"
-            android:background="@android:color/transparent"
             android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"
             />
-
     </RelativeLayout>
 
     <RelativeLayout

@@ -55,5 +55,64 @@
     </RelativeLayout>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp"
+        android:background="@color/twitterWhite"
+        >
+
+        <ImageView
+            style="@style/UserThumbnail"
+            android:id="@+id/ivProfileImage"
+            android:src="@drawable/ic_launcher"
+            />
+
+        <TextView
+            style="@style/NameStyle"
+            android:text="Hearsay Social"
+            android:layout_toRightOf="@id/ivProfileImage"
+            android:layout_alignTop="@id/ivProfileImage"
+            android:layout_alignParentRight="true"
+            android:id="@+id/tvName"
+            />
+
+        <TextView
+            style="@style/SmallGrayText"
+            android:text="hearsaysocial"
+            android:layout_toRightOf="@id/ivProfileImage"
+            android:layout_below="@id/tvName"
+            android:layout_alignParentRight="true"
+            android:id="@+id/tvUserName"
+            />
+
+        <TextView
+            style="@style/LargeBlackText"
+            android:text="Some long tweet about a lot of stuff that goes on and on for lots of characters"
+            android:layout_below="@id/ivProfileImage"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/tvBody"
+            />
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/ivMediaImage"
+            android:layout_below="@id/tvBody"
+            android:layout_marginTop="20dp"
+            />
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
 
 </RelativeLayout>

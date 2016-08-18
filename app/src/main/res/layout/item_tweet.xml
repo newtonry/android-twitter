@@ -7,26 +7,17 @@
 
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        style="@style/UserThumbnail"
         android:id="@+id/ivProfileImage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginRight="5dp"
         />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/NameStyle"
         android:text="Philip Bloom"
         android:id="@+id/tvName"
         android:layout_alignTop="@id/ivProfileImage"
         android:layout_toRightOf="@+id/ivProfileImage"
         android:layout_marginLeft="2dp"
-        android:textColor="@color/twitterBlack"
-        android:textStyle="bold"
-        android:textSize="13sp"
         />
 
     <TextView
@@ -49,8 +40,6 @@
 
     <TextView
         style="@style/SmallGrayText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="\@PhilipBloom"
         android:id="@+id/tvUserName"
@@ -64,8 +53,6 @@
 
     <TextView
         style="@style/SmallGrayText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="3h"
         android:id="@+id/tvTime"
