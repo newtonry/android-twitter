@@ -81,4 +81,16 @@
         <item name="android:scaleType">centerInside</item>
         <item name="android:tint">@color/twitterLightGray</item>
     </style>
+
+    <style name="DetailedViewImageButtons">
+        <item name="android:backgroundTint">@color/twitterWhite</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:tint">@color/twitterLightGray</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
 </resources>

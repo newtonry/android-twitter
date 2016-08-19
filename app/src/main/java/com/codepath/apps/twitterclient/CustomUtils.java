@@ -4,6 +4,7 @@ import android.text.format.DateUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -26,5 +27,20 @@ public class CustomUtils {
         }
 
         return relativeDate;
+    }
+
+    public static String getDateTimeString(String rawJsonDate) {
+        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+        sf.setLenient(true);
+
+        String dateString = "";
+        try {
+            long timeStamp = sf.parse(rawJsonDate).getTime();
+            dateString = new SimpleDateFormat("MM/dd/yy, h:mm a").format(new Date(timeStamp));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateString;
     }
 }

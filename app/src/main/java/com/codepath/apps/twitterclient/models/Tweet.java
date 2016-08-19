@@ -33,11 +33,9 @@ public class Tweet {
     Boolean retweeted;
 
 
-
     public String getCreatedAt() {
         return createdAt;
     }
-
     public String getBody() {
         return body;
     }
@@ -53,6 +51,8 @@ public class Tweet {
     public String getTimeDifference() {
         return CustomUtils.getRelativeTimeAgo(createdAt);
     }
+    public int getRetweetCount() { return retweetCount; }
+    public int getFavoriteCount() { return favoriteCount; }
     public Boolean isFavorited() {
         return favorited;
     }

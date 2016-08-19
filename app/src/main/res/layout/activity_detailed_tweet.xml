@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codepath.apps.twitterclient.DetailedTweetActivity">
+    tools:context="com.codepath.apps.twitterclient.DetailedTweetActivity"
+    android:background="@color/twitterWhite"
+    >
 
 
     <RelativeLayout
@@ -119,6 +121,7 @@
         android:padding="16dp"
         >
         <TextView
+            android:id="@+id/tvDatePosted"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="8/18/16, 12:55 PM"
@@ -150,7 +153,7 @@
             android:layout_alignParentBottom="true"
             android:gravity="center_vertical"
             android:layout_alignParentLeft="true"
-            android:id="@+id/tvTweetCount"
+            android:id="@+id/tvRetweetCount"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -161,7 +164,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:gravity="center_vertical"
-            android:layout_toRightOf="@id/tvTweetCount"
+            android:layout_toRightOf="@id/tvRetweetCount"
             android:layout_marginLeft="5dp"
             android:id="@+id/tvRetweets"
             />
@@ -192,6 +195,53 @@
             android:layout_toRightOf="@id/tvFavoriteCount"
             android:layout_marginLeft="5dp"
             android:id="@+id/tvFavorites"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/rvActionCounts"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/basic_bottom_border"
+        android:id="@+id/rvActionButtons"
+        android:padding="16dp"
+        android:gravity="center"
+        >
+
+        <ImageButton
+            style="@style/DetailedViewImageButtons"
+            android:id="@+id/btnReply"
+            android:src="@drawable/ic_reply_black_48dp"
+            android:layout_marginRight="40dp"
+            />
+        <ImageButton
+            style="@style/DetailedViewImageButtons"
+            android:id="@+id/btnRetweet"
+            android:layout_alignTop="@id/btnReply"
+            android:layout_alignBottom="@id/btnReply"
+            android:src="@drawable/ic_repeat_black_48dp"
+
+            android:layout_toRightOf="@id/btnReply"
+            android:layout_marginRight="40dp"
+            />
+        <ImageButton
+            style="@style/DetailedViewImageButtons"
+            android:layout_alignTop="@id/btnReply"
+            android:layout_alignBottom="@id/btnReply"
+            android:src="@drawable/ic_favorite_black_48dp"
+            android:id="@+id/btnFavorite"
+            android:layout_toRightOf="@id/btnRetweet"
+            android:layout_marginRight="40dp"
+            />
+        <ImageButton
+            style="@style/DetailedViewImageButtons"
+            android:layout_alignTop="@id/btnReply"
+            android:layout_alignBottom="@id/btnReply"
+            android:src="@drawable/ic_message_black_48dp"
+            android:id="@+id/btnMessage"
+            android:layout_toRightOf="@id/btnFavorite"
             />
     </RelativeLayout>
 

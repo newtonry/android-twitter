@@ -28,6 +28,10 @@ public class DetailedTweetActivity extends AppCompatActivity {
     @BindView(R.id.tvUserName) TextView tvUserName;
     @BindView(R.id.tvBody) TextView tvBody;
     @BindView(R.id.ivMediaImage) ImageView ivMediaImage;
+    @BindView(R.id.tvRetweetCount) TextView tvRetweetCount;
+    @BindView(R.id.tvFavoriteCount) TextView tvFavoriteCount;
+    @BindView(R.id.tvDatePosted) TextView tvDatePosted;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,9 @@ public class DetailedTweetActivity extends AppCompatActivity {
         tvName.setText(tweet.getUser().getName());
         tvUserName.setText(tweet.getUser().getScreenName());
         tvBody.setText(tweet.getBody());
+        tvFavoriteCount.setText(Integer.toString(tweet.getFavoriteCount()));
+        tvRetweetCount.setText(Integer.toString(tweet.getRetweetCount()));
+        tvDatePosted.setText(CustomUtils.getDateTimeString(tweet.getCreatedAt()));
 
         Picasso.with(this).load(tweet.getUser().getProfileImageUrl())
                 .transform(new RoundedCornersTransformation(3, 3))
