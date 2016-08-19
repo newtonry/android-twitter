@@ -28,6 +28,8 @@
             android:src="@drawable/twitter_icon"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textColor="@color/twitterBlack"
             />
 
         <ImageButton

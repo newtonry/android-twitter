@@ -5,7 +5,6 @@
     android:background="@drawable/basic_bottom_border"
     >
 
-
     <ImageView
         style="@style/UserThumbnail"
         android:id="@+id/ivProfileImage"

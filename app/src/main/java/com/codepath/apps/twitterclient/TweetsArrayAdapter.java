@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -23,7 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Created by rnewton on 8/15/16.
@@ -110,16 +110,16 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
 
         viewHolder.ivProfileImage.setImageResource(0);
         viewHolder.ivMediaImage.setImageResource(0);
-        Picasso.with(getContext())
+        Glide.with(getContext())
                 .load(tweet.getUser().getProfileImageUrl())
-                .transform(new RoundedCornersTransformation(3, 3))
+                .bitmapTransform(new RoundedCornersTransformation(getContext(), 3, 0))
                 .into(viewHolder.ivProfileImage);
 
         if (!tweet.getMediaUrl().isEmpty()) {
             viewHolder.ivMediaImage.setVisibility(View.VISIBLE);
-            Picasso.with(getContext())
+            Glide.with(getContext())
                     .load(tweet.getMediaUrl())
-                    .transform(new RoundedCornersTransformation(15, 15))
+                    .bitmapTransform(new RoundedCornersTransformation(getContext(), 15, 0))
                     .into(viewHolder.ivMediaImage);
         } else {
             viewHolder.ivMediaImage.setVisibility(View.GONE);

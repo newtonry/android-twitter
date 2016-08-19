@@ -9,16 +9,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 
 public class DetailedTweetActivity extends AppCompatActivity {
 
@@ -68,13 +69,15 @@ public class DetailedTweetActivity extends AppCompatActivity {
         tvRetweetCount.setText(Integer.toString(tweet.getRetweetCount()));
         tvDatePosted.setText(CustomUtils.getDateTimeString(tweet.getCreatedAt()));
 
-        Picasso.with(this).load(tweet.getUser().getProfileImageUrl())
-                .transform(new RoundedCornersTransformation(3, 3))
+
+
+        Glide.with(this).load(tweet.getUser().getProfileImageUrl())
+                .bitmapTransform(new RoundedCornersTransformation(this, 3, 0))
                 .into(ivProfileImage);
 
         if (!tweet.getMediaUrl().isEmpty()) {
-            Picasso.with(this).load(tweet.getMediaUrl())
-                    .transform(new RoundedCornersTransformation(20, 20))
+            Glide.with(this).load(tweet.getMediaUrl())
+                    .bitmapTransform(new RoundedCornersTransformation(this, 20, 0))
                     .into(ivMediaImage);
         }
 
