@@ -5,5 +5,7 @@
     <string name="login_label">Connect to Twitter</string>
     <string name="what_s_happening">What\'s happening?</string>
     <string name="tweet">Tweet</string>
+    <string name="retweets_caps">RETWEETS</string>
+    <string name="favorites_caps">FAVORITES</string>
 
 </resources>
