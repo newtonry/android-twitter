@@ -32,6 +32,7 @@ public class TwitterClient extends OAuthBaseClient {
 	static String NEW_STATUS_URL = "statuses/update.json";
 	static String TWEET_BY_ID = "statuses/show.json";
 	static String FAVORITE_TWEET = "favorites/create.json";
+	static String RETWEET_TWEET = "statuses/retweet/";
 
 
 
@@ -79,6 +80,13 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("id", id);
 		getClient().post(REST_URL + FAVORITE_TWEET, params, callback);
 	}
+
+	public void retweetTweet(AsyncHttpResponseHandler callback, Long id) {
+		RequestParams params = new RequestParams();
+		params.put("id", id);
+		getClient().post(REST_URL + RETWEET_TWEET + id + ".json", params, callback);
+	}
+
 
 
 

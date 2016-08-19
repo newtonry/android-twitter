@@ -53,6 +53,12 @@ public class Tweet {
     public String getTimeDifference() {
         return CustomUtils.getRelativeTimeAgo(createdAt);
     }
+    public Boolean isFavorited() {
+        return favorited;
+    }
+    public Boolean isRetweeted() {
+        return retweeted;
+    }
 
 
     public Tweet() {

@@ -10,14 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.apps.twitterclient.models.Tweet;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.Header;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
@@ -40,7 +45,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        final Context context = parent.getContext();
         View tweetView = LayoutInflater.from(context).inflate(R.layout.item_tweet, parent, false);
         final ViewHolder viewHolder = new ViewHolder(tweetView);
 
@@ -63,11 +68,32 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewHolder.btnFavorite.setColorFilter(parent.getContext().getResources().getColor(android.R.color.holo_red_dark));
+                TwitterClient client = new TwitterClient(parent.getContext());
+                client.favoriteTweet(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Log.v("debug", "favorited");
+                        Toast.makeText(context, "Favorited!", Toast.LENGTH_SHORT).show();
+                        viewHolder.btnFavorite.setColorFilter(parent.getContext().getResources().getColor(android.R.color.holo_red_dark));
+                    }
+                }, viewHolder.tweetId);
             }
         });
 
-
+        viewHolder.btnRetweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TwitterClient client = new TwitterClient(parent.getContext());
+                client.retweetTweet(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Log.v("debug", "retweeted");
+                        Toast.makeText(context, "Retweeted!", Toast.LENGTH_SHORT).show();
+                        viewHolder.btnRetweet.setColorFilter(parent.getContext().getResources().getColor(R.color.twitterRetweetGreen));
+                    }
+                }, viewHolder.tweetId);
+            }
+        });
 
         return viewHolder;
     }
@@ -99,6 +125,14 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             viewHolder.ivMediaImage.setVisibility(View.GONE);
         }
 
+        if (tweet.isFavorited()) {
+            viewHolder.btnFavorite.setColorFilter(context.getResources().getColor(android.R.color.holo_red_dark));
+        }
+        if (tweet.isRetweeted()) {
+            viewHolder.btnRetweet.setColorFilter(context.getResources().getColor(R.color.twitterRetweetGreen));
+        }
+
+
         viewHolder.setupFonts(getContext());
     }
 
@@ -119,6 +153,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         @BindView(R.id.tvName) TextView tvName;
         @BindView(R.id.ivMediaImage) ImageView ivMediaImage;
         @BindView(R.id.btnReply) ImageView btnReply;
+        @BindView(R.id.btnRetweet) ImageView btnRetweet;
         @BindView(R.id.btnFavorite) ImageView btnFavorite;
 
 
