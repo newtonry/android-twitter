@@ -31,6 +31,7 @@ public class TwitterClient extends OAuthBaseClient {
 	static String TIMELINE_URL = "statuses/home_timeline.json";
 	static String NEW_STATUS_URL = "statuses/update.json";
 	static String TWEET_BY_ID = "statuses/show.json";
+	static String FAVORITE_TWEET = "favorites/create.json";
 
 
 
@@ -73,6 +74,11 @@ public class TwitterClient extends OAuthBaseClient {
 		getClient().get(REST_URL + TWEET_BY_ID, params, callback);
 	}
 
+	public void favoriteTweet(AsyncHttpResponseHandler callback, Long id) {
+		RequestParams params = new RequestParams();
+		params.put("id", id);
+		getClient().post(REST_URL + FAVORITE_TWEET, params, callback);
+	}
 
 
 

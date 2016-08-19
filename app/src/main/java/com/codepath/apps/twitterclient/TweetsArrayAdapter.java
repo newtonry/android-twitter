@@ -39,7 +39,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View tweetView = LayoutInflater.from(context).inflate(R.layout.item_tweet, parent, false);
         final ViewHolder viewHolder = new ViewHolder(tweetView);
@@ -59,6 +59,14 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
                 act.launchComposeView(view, viewHolder.userName);
             }
         });
+
+        viewHolder.btnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewHolder.btnFavorite.setColorFilter(parent.getContext().getResources().getColor(android.R.color.holo_red_dark));
+            }
+        });
+
 
 
         return viewHolder;
@@ -111,6 +119,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         @BindView(R.id.tvName) TextView tvName;
         @BindView(R.id.ivMediaImage) ImageView ivMediaImage;
         @BindView(R.id.btnReply) ImageView btnReply;
+        @BindView(R.id.btnFavorite) ImageView btnFavorite;
 
 
         public ViewHolder(View itemView) {
