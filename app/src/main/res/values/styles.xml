@@ -75,8 +75,8 @@
 
     <style name="ListViewActionItems">
         <item name="android:backgroundTint">@color/twitterWhite</item>
-        <item name="android:layout_width">45dp</item>
-        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:scaleType">centerInside</item>
         <item name="android:tint">@color/twitterLightGray</item>

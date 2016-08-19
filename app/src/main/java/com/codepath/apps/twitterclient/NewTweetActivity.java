@@ -35,7 +35,8 @@ public class NewTweetActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         String prefill = getIntent().getStringExtra("prefill");
-        etMessage.setText(prefill);
+        etMessage.setText(prefill + " ");
+        etMessage.setSelection(etMessage.getText().length());
         setupListeners();
     }
 

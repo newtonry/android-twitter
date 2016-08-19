@@ -52,6 +52,15 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             }
         });
 
+        viewHolder.btnReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimelineActivity act = (TimelineActivity) getContext();
+                act.launchComposeView(view, viewHolder.userName);
+            }
+        });
+
+
         return viewHolder;
     }
 
@@ -63,6 +72,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.tvBody.setText(tweet.getBody());
         viewHolder.tvTime.setText(tweet.getTimeDifference());
         viewHolder.tweetId = tweet.getUid();
+        viewHolder.userName = tweet.getUser().getScreenName();
 
         viewHolder.ivProfileImage.setImageResource(0);
         viewHolder.ivMediaImage.setImageResource(0);
@@ -93,12 +103,14 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         Long tweetId;
+        String userName;
         @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
         @BindView(R.id.tvUserName) TextView tvUserName;
         @BindView(R.id.tvBody) TextView tvBody;
         @BindView(R.id.tvTime) TextView tvTime;
         @BindView(R.id.tvName) TextView tvName;
         @BindView(R.id.ivMediaImage) ImageView ivMediaImage;
+        @BindView(R.id.btnReply) ImageView btnReply;
 
 
         public ViewHolder(View itemView) {

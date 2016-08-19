@@ -165,14 +165,14 @@ public class TimelineActivity extends AppCompatActivity {
         startActivityForResult(i, 200);
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
     }
-//
-//    public void launchComposeView(View view, String prefill) {
-//        Log.v("log", "launching new tweet");
-//        Intent i = new Intent(TimelineActivity.this, NewTweetActivity.class);
-//        i.putExtra("prefill", prefill);
-//        startActivityForResult(i, 200);
-//        overridePendingTransition(R.anim.slide_up, R.anim.no_change);
-//    }
+
+    public void launchComposeView(View view, String prefill) {
+        Log.v("log", "launching new tweet");
+        Intent i = new Intent(TimelineActivity.this, NewTweetActivity.class);
+        i.putExtra("prefill", prefill);
+        startActivityForResult(i, 200);
+        overridePendingTransition(R.anim.slide_up, R.anim.no_change);
+    }
 
     public void launchDetailedActivity(Long tweetId) {
         Log.v("log", "launching detailed");
