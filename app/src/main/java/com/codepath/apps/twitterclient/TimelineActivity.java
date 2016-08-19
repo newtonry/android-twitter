@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -32,6 +33,8 @@ public class TimelineActivity extends AppCompatActivity {
 
     @BindView(R.id.lvTweets) RecyclerView lvTweets;
     @BindView(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
+    @BindView(R.id.btnNewTweet) ImageButton btnNewTweet;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,15 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApplication.getRestClient();
         populateTimeline();
+
+
+
+        btnNewTweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchComposeView(view);
+            }
+        });
     }
 
 
@@ -133,7 +145,11 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        overridePendingTransition(R.anim.no_change,R.anim.slide_down);
+        if (requestCode == 200) {
+            overridePendingTransition(R.anim.no_change,R.anim.slide_down);
+        } else if (requestCode == 100) {
+            overridePendingTransition(R.anim.no_change,R.anim.slide_right);
+        }
 
         if (resultCode == 200) {
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
@@ -145,17 +161,24 @@ public class TimelineActivity extends AppCompatActivity {
     public void launchComposeView(View view) {
         Log.v("log", "launching new tweet");
         Intent i = new Intent(TimelineActivity.this, NewTweetActivity.class);
+        i.putExtra("prefill", "");
         startActivityForResult(i, 200);
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
     }
+//
+//    public void launchComposeView(View view, String prefill) {
+//        Log.v("log", "launching new tweet");
+//        Intent i = new Intent(TimelineActivity.this, NewTweetActivity.class);
+//        i.putExtra("prefill", prefill);
+//        startActivityForResult(i, 200);
+//        overridePendingTransition(R.anim.slide_up, R.anim.no_change);
+//    }
 
     public void launchDetailedActivity(Long tweetId) {
         Log.v("log", "launching detailed");
         Intent i = new Intent(TimelineActivity.this, DetailedTweetActivity.class);
         i.putExtra("tweetId", tweetId);
-        startActivityForResult(i, 200);
-        overridePendingTransition(R.anim.slide_up, R.anim.no_change);
+        startActivityForResult(i, 100);
+        overridePendingTransition(R.anim.slide_left, R.anim.no_change);
     }
-
-
 }

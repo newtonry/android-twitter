@@ -27,6 +27,11 @@ public class Tweet {
     User user;
     String createdAt;
     String mediaUrl;
+    int retweetCount;
+    int favoriteCount;
+    Boolean favorited;
+    Boolean retweeted;
+
 
 
     public String getCreatedAt() {
@@ -49,6 +54,7 @@ public class Tweet {
         return CustomUtils.getRelativeTimeAgo(createdAt);
     }
 
+
     public Tweet() {
 
     }
@@ -60,6 +66,10 @@ public class Tweet {
             tweet.body = jsonObject.getString("text");
             tweet.uid = jsonObject.getLong("id");
             tweet.createdAt = jsonObject.getString("created_at");
+            tweet.retweetCount = jsonObject.getInt("retweet_count");
+            tweet.favoriteCount = jsonObject.getInt("favorite_count");
+            tweet.favorited = jsonObject.getBoolean("favorited");
+            tweet.retweeted = jsonObject.getBoolean("retweeted");
 
             tweet.mediaUrl = "";
             if (jsonObject.has("extended_entities")) {

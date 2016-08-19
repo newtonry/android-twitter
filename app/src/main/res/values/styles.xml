@@ -33,7 +33,7 @@
 
     <style name="DisabledButton">
         <item name="android:textColor">@color/twitterLightGray</item>
-        <item name="android:background">@color/twitterWhite</item>
+        <item name="android:background">@drawable/basic_border_full</item>
         <item name="android:enabled">false</item>
     </style>
 
@@ -62,6 +62,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/twitterBlack</item>
+        <item name="android:scaleType">centerInside</item>
     </style>
 
     <style name="LargeBlackText">
@@ -69,6 +70,15 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/twitterBlack</item>
+        <item name="android:lineSpacingExtra">3dp</item>
     </style>
 
+    <style name="ListViewActionItems">
+        <item name="android:backgroundTint">@color/twitterWhite</item>
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:tint">@color/twitterLightGray</item>
+    </style>
 </resources>

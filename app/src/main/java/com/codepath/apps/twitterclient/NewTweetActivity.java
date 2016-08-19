@@ -33,6 +33,9 @@ public class NewTweetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_tweet);
         ButterKnife.bind(this);
+
+        String prefill = getIntent().getStringExtra("prefill");
+        etMessage.setText(prefill);
         setupListeners();
     }
 
@@ -99,7 +102,7 @@ public class NewTweetActivity extends AppCompatActivity {
 
     public void closeNewTweetActivity(View view) {
         Intent data = new Intent();
-        setResult(100, data);
+        setResult(199, data);
         finish();
     }
 }

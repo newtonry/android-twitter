@@ -39,7 +39,6 @@
             android:id="@+id/btnNewTweet"
             android:src="@drawable/newmessage"
             android:layout_alignParentRight="true"
-            android:onClick="launchComposeView"
             />
 
 

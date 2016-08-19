@@ -65,10 +65,21 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.tweetId = tweet.getUid();
 
         viewHolder.ivProfileImage.setImageResource(0);
+        viewHolder.ivMediaImage.setImageResource(0);
         Picasso.with(getContext())
                 .load(tweet.getUser().getProfileImageUrl())
                 .transform(new RoundedCornersTransformation(3, 3))
                 .into(viewHolder.ivProfileImage);
+
+        if (!tweet.getMediaUrl().isEmpty()) {
+            viewHolder.ivMediaImage.setVisibility(View.VISIBLE);
+            Picasso.with(getContext())
+                    .load(tweet.getMediaUrl())
+                    .transform(new RoundedCornersTransformation(15, 15))
+                    .into(viewHolder.ivMediaImage);
+        } else {
+            viewHolder.ivMediaImage.setVisibility(View.GONE);
+        }
 
         viewHolder.setupFonts(getContext());
     }
@@ -87,6 +98,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         @BindView(R.id.tvBody) TextView tvBody;
         @BindView(R.id.tvTime) TextView tvTime;
         @BindView(R.id.tvName) TextView tvName;
+        @BindView(R.id.ivMediaImage) ImageView ivMediaImage;
 
 
         public ViewHolder(View itemView) {

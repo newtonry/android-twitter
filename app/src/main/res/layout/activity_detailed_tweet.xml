@@ -103,6 +103,7 @@
             android:id="@+id/ivMediaImage"
             android:layout_below="@id/tvBody"
             android:layout_marginTop="20dp"
+            android:scaleType="fitCenter"
             />
 
 
