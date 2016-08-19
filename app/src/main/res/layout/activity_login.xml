@@ -2,18 +2,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".LoginActivity" >
+    android:padding="30dp"
+    tools:context=".LoginActivity"
+    android:background="@color/twitterPrimaryBlue"
+    >
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/twitter_icon"
+        android:tint="@color/twitterWhite"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        />
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_to_twitter"
+        android:layout_below="@id/ivIcon"
+        android:textColor="@color/twitterWhite"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:layout_marginTop="80dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/see_what_s_happening_in_the_world_right_now"
+        android:layout_below="@id/tvWelcome"
+        android:textColor="@color/twitterWhite"
+        android:textSize="25sp"
+        android:layout_marginTop="25dp"
+        />
 
     <Button
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
         android:onClick="loginToRest"
-        android:text="@string/login_label" />
+        android:text="@string/login_label"
+        android:textColor="@color/twitterPrimaryBlue"
+        android:backgroundTint="@color/twitterWhite"
+        />
 
 </RelativeLayout>
