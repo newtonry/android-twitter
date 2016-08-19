@@ -222,7 +222,6 @@
             android:layout_alignTop="@id/btnReply"
             android:layout_alignBottom="@id/btnReply"
             android:src="@drawable/ic_repeat_black_48dp"
-
             android:layout_toRightOf="@id/btnReply"
             android:layout_marginRight="40dp"
             />

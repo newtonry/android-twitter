@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +32,8 @@ public class DetailedTweetActivity extends AppCompatActivity {
     @BindView(R.id.tvRetweetCount) TextView tvRetweetCount;
     @BindView(R.id.tvFavoriteCount) TextView tvFavoriteCount;
     @BindView(R.id.tvDatePosted) TextView tvDatePosted;
+    @BindView(R.id.btnRetweet) ImageButton btnRetweet;
+    @BindView(R.id.btnFavorite) ImageButton btnFavorite;
 
 
     @Override
@@ -74,6 +77,14 @@ public class DetailedTweetActivity extends AppCompatActivity {
                     .transform(new RoundedCornersTransformation(20, 20))
                     .into(ivMediaImage);
         }
+
+        if (tweet.isFavorited()) {
+            btnFavorite.setColorFilter(getResources().getColor(android.R.color.holo_red_dark));
+        }
+        if (tweet.isRetweeted()) {
+            btnRetweet.setColorFilter(getResources().getColor(R.color.twitterRetweetGreen));
+        }
+
 
     }
 

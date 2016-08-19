@@ -5,7 +5,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
+import com.codepath.apps.twitterclient.models.User;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
@@ -27,8 +35,30 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	// i.e Display application "homepage"
 	@Override
 	public void onLoginSuccess() {
-		 Intent i = new Intent(this, TimelineActivity.class);
+
+		TwitterClient client = new TwitterClient(this);
+		client.getLoggedInUser(new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+				try {
+					JSONObject userJson = response.getJSONObject(0);
+					User user = User.fromJSON(userJson);
+					TwitterApplication application = (TwitterApplication) getApplication();
+					application.user = user;
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+
+
+			}
+		});
+
+		Intent i = new Intent(this, TimelineActivity.class);
 		 startActivity(i);
+
+
+
 	}
 
 	// OAuth authentication flow failed, handle the error

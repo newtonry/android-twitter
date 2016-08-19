@@ -127,9 +127,13 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
 
         if (tweet.isFavorited()) {
             viewHolder.btnFavorite.setColorFilter(context.getResources().getColor(android.R.color.holo_red_dark));
+        } else {
+            viewHolder.btnFavorite.setColorFilter(context.getResources().getColor(R.color.twitterLightGray));
         }
         if (tweet.isRetweeted()) {
             viewHolder.btnRetweet.setColorFilter(context.getResources().getColor(R.color.twitterRetweetGreen));
+        } else {
+            viewHolder.btnRetweet.setColorFilter(context.getResources().getColor(R.color.twitterLightGray));
         }
 
 

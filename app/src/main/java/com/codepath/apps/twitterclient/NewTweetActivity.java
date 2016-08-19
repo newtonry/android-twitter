@@ -9,10 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.twitterclient.models.Tweet;
+import com.codepath.apps.twitterclient.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 import org.parceler.Parcels;
@@ -20,12 +23,15 @@ import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class NewTweetActivity extends AppCompatActivity {
 
+    private User user;
     @BindView(R.id.btnPostTweet) Button btnPostTweet;
     @BindView(R.id.etMessage) EditText etMessage;
     @BindView(R.id.tvCharactersLeft) TextView tvCharactersLeft;
+    @BindView(R.id.ivUserImage) ImageView ivUserImage;
 
 
     @Override
@@ -37,7 +43,16 @@ public class NewTweetActivity extends AppCompatActivity {
         String prefill = getIntent().getStringExtra("prefill");
         etMessage.setText(prefill + " ");
         etMessage.setSelection(etMessage.getText().length());
+
+        TwitterApplication application = (TwitterApplication) getApplication();
+        this.user = application.user;
+
+        Picasso.with(this)
+                .load(user.getProfileImageUrl())
+                .transform(new RoundedCornersTransformation(3, 3))
+                .into(ivUserImage);
         setupListeners();
+
     }
 
     private void setupListeners() {
