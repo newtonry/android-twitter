@@ -51,9 +51,6 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApplication.getRestClient();
         populateTimeline();
-
-
-
         btnNewTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,10 +171,13 @@ public class TimelineActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
     }
 
-    public void launchDetailedActivity(Long tweetId) {
+    public void launchDetailedActivity(Tweet tweet) {
         Log.v("log", "launching detailed");
         Intent i = new Intent(TimelineActivity.this, DetailedTweetActivity.class);
-        i.putExtra("tweetId", tweetId);
+//        i.putExtra("tweetId", tweetId);
+        i.putExtra("tweet", Parcels.wrap(tweet));
+
+
         startActivityForResult(i, 100);
         overridePendingTransition(R.anim.slide_left, R.anim.no_change);
     }

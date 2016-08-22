@@ -1,5 +1,7 @@
 package com.codepath.apps.twitterclient.models;
 
+import android.util.Log;
+
 import com.codepath.apps.twitterclient.CustomUtils;
 
 import org.json.JSONArray;
@@ -14,23 +16,20 @@ import java.util.ArrayList;
  */
 
 
-
-//@Table(name = "Tweets")
 @Parcel
 public class Tweet {
-//    @Column(name = "body") String body;
-//    @Column(name = "uid", unique = true) Long uid;
-//    @Column(name = "user", onUpdate = Column.ForeignKeyAction.CASCADE) User user;
-//    @Column(name = "createdAt") String createdAt;
     String body;
+    String retweetedBody;
     Long uid;
     User user;
+    User retweetedUser;
     String createdAt;
     String mediaUrl;
     int retweetCount;
     int favoriteCount;
     Boolean favorited;
     Boolean retweeted;
+    public Boolean wasRetweetedByUser = false;
 
 
     public String getCreatedAt() {
@@ -38,6 +37,9 @@ public class Tweet {
     }
     public String getBody() {
         return body;
+    }
+    public String getRetweetedBody() {
+        return retweetedBody;
     }
     public String getMediaUrl() {
         return mediaUrl;
@@ -47,6 +49,9 @@ public class Tweet {
     }
     public User getUser() {
         return user;
+    }
+    public User getRetweetedUser() {
+        return retweetedUser;
     }
     public String getTimeDifference() {
         return CustomUtils.getRelativeTimeAgo(createdAt);
@@ -59,6 +64,10 @@ public class Tweet {
     public Boolean isRetweeted() {
         return retweeted;
     }
+    public Boolean getWasRetweetedByUser() {
+        return wasRetweetedByUser;
+    }
+
 
 
     public Tweet() {
@@ -76,6 +85,16 @@ public class Tweet {
             tweet.favoriteCount = jsonObject.getInt("favorite_count");
             tweet.favorited = jsonObject.getBoolean("favorited");
             tweet.retweeted = jsonObject.getBoolean("retweeted");
+
+            if (jsonObject.has("retweeted_status")) {
+                tweet.wasRetweetedByUser = true;
+                JSONObject retweetedStatus = jsonObject.getJSONObject("retweeted_status");
+                tweet.retweetedBody = retweetedStatus.getString("text");
+                JSONObject retweetedUserJson = retweetedStatus.getJSONObject("user");
+                tweet.retweetedUser = User.fromJSON(retweetedUserJson);
+                Log.v("reee", retweetedUserJson.toString());
+
+            }
 
             tweet.mediaUrl = "";
             if (jsonObject.has("extended_entities")) {

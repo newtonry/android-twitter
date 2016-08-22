@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.twitterclient.models.Tweet;
+import com.codepath.apps.twitterclient.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
@@ -53,7 +54,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             @Override
             public void onClick(View view) {
                 TimelineActivity act = (TimelineActivity) getContext();
-                act.launchDetailedActivity(viewHolder.tweetId);
+                act.launchDetailedActivity(viewHolder.tweet);
             }
         });
 
@@ -61,7 +62,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             @Override
             public void onClick(View view) {
                 TimelineActivity act = (TimelineActivity) getContext();
-                act.launchComposeView(view, viewHolder.userName);
+                act.launchComposeView(view, viewHolder.tweet.getUser().getScreenName());
             }
         });
 
@@ -76,7 +77,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
                         Toast.makeText(context, "Favorited!", Toast.LENGTH_SHORT).show();
                         viewHolder.btnFavorite.setColorFilter(parent.getContext().getResources().getColor(android.R.color.holo_red_dark));
                     }
-                }, viewHolder.tweetId);
+                }, viewHolder.tweet.getUid());
             }
         });
 
@@ -91,7 +92,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
                         Toast.makeText(context, "Retweeted!", Toast.LENGTH_SHORT).show();
                         viewHolder.btnRetweet.setColorFilter(parent.getContext().getResources().getColor(R.color.twitterRetweetGreen));
                     }
-                }, viewHolder.tweetId);
+                }, viewHolder.tweet.getUid());
             }
         });
 
@@ -101,17 +102,33 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         Tweet tweet = tweets.get(position);
-        viewHolder.tvName.setText(tweet.getUser().getName());
-        viewHolder.tvUserName.setText(tweet.getUser().getScreenName());
-        viewHolder.tvBody.setText(tweet.getBody());
+        User user = tweet.getWasRetweetedByUser() ? tweet.getRetweetedUser() : tweet.getUser();
+        String body = tweet.getWasRetweetedByUser() ? tweet.getRetweetedBody() : tweet.getBody();
+
+
+
+        viewHolder.tvName.setText(user.getName());
+        viewHolder.tvUserName.setText(user.getScreenName());
+        viewHolder.tvBody.setText(body);
         viewHolder.tvTime.setText(tweet.getTimeDifference());
-        viewHolder.tweetId = tweet.getUid();
-        viewHolder.userName = tweet.getUser().getScreenName();
+        viewHolder.tweet = tweet;
+
+
+        if (tweet.getWasRetweetedByUser()) {
+            viewHolder.tvNameRetweeted.setVisibility(View.VISIBLE);
+            viewHolder.ivRetweetedStatus.setVisibility(View.VISIBLE);
+            viewHolder.tvNameRetweeted.setText(tweet.getUser().getName() + " Retweeted");
+        } else {
+            viewHolder.tvNameRetweeted.setVisibility(View.GONE);
+            viewHolder.ivRetweetedStatus.setVisibility(View.GONE);
+
+        }
+
 
         viewHolder.ivProfileImage.setImageResource(0);
         viewHolder.ivMediaImage.setImageResource(0);
         Glide.with(getContext())
-                .load(tweet.getUser().getProfileImageUrl())
+                .load(user.getProfileImageUrl())
                 .bitmapTransform(new RoundedCornersTransformation(getContext(), 3, 0))
                 .into(viewHolder.ivProfileImage);
 
@@ -119,7 +136,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             viewHolder.ivMediaImage.setVisibility(View.VISIBLE);
             Glide.with(getContext())
                     .load(tweet.getMediaUrl())
-                    .bitmapTransform(new RoundedCornersTransformation(getContext(), 15, 0))
+                    .bitmapTransform(new RoundedCornersTransformation(getContext(), 8, 0))
                     .into(viewHolder.ivMediaImage);
         } else {
             viewHolder.ivMediaImage.setVisibility(View.GONE);
@@ -136,7 +153,6 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             viewHolder.btnRetweet.setColorFilter(context.getResources().getColor(R.color.twitterLightGray));
         }
 
-
         viewHolder.setupFonts(getContext());
     }
 
@@ -148,8 +164,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        Long tweetId;
-        String userName;
+        Tweet tweet;
         @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
         @BindView(R.id.tvUserName) TextView tvUserName;
         @BindView(R.id.tvBody) TextView tvBody;
@@ -159,6 +174,8 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         @BindView(R.id.btnReply) ImageView btnReply;
         @BindView(R.id.btnRetweet) ImageView btnRetweet;
         @BindView(R.id.btnFavorite) ImageView btnFavorite;
+        @BindView(R.id.tvNameRetweeted) TextView tvNameRetweeted;
+        @BindView(R.id.ivRetweetedStatus) ImageView ivRetweetedStatus;
 
 
         public ViewHolder(View itemView) {
@@ -172,6 +189,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             tvBody.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neue LT Pro 55 Roman.ttf"));
             tvUserName.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neue LT Pro 55 Roman.ttf"));
             tvTime.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neue LT Pro 55 Roman.ttf"));
+            tvNameRetweeted.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neue LT Pro 55 Roman.ttf"));
         }
 
     }

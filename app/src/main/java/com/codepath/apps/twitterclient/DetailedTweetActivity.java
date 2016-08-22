@@ -1,9 +1,7 @@
 package com.codepath.apps.twitterclient;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -11,13 +9,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.twitterclient.models.Tweet;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cz.msebera.android.httpclient.Header;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 
@@ -43,22 +39,25 @@ public class DetailedTweetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detailed_tweet);
         ButterKnife.bind(this);
 
-        Intent i = getIntent();
-        Long tweetId = i.getLongExtra("tweetId", 0);
+//        Intent i = getIntent();
+//        Long tweetId = i.getLongExtra("tweetId", 0);
 
-        TwitterClient client = new TwitterClient(this);
+//        TwitterClient client = new TwitterClient(this);
 
-        client.getTweetById(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                tweet = Tweet.fromJSON(response);
-                render();
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("test", errorResponse.toString());
-            }
-        }, tweetId);
+//        client.getTweetById(new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                tweet = Tweet.fromJSON(response);
+//                render();
+//            }
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//                Log.d("test", errorResponse.toString());
+//            }
+//        }, tweetId);
+
+        tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
+        render();
     }
 
     private void render() {
