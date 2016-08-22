@@ -105,14 +105,13 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         User user = tweet.getWasRetweetedByUser() ? tweet.getRetweetedUser() : tweet.getUser();
         String body = tweet.getWasRetweetedByUser() ? tweet.getRetweetedBody() : tweet.getBody();
 
-
-
         viewHolder.tvName.setText(user.getName());
         viewHolder.tvUserName.setText(user.getScreenName());
         viewHolder.tvBody.setText(body);
         viewHolder.tvTime.setText(tweet.getTimeDifference());
         viewHolder.tweet = tweet;
-
+        viewHolder.tvFavoriteCount.setText(Integer.toString(tweet.getFavoriteCount()));
+        viewHolder.tvRetweetCount.setText(Integer.toString(tweet.getRetweetCount()));
 
         if (tweet.getWasRetweetedByUser()) {
             viewHolder.tvNameRetweeted.setVisibility(View.VISIBLE);
@@ -123,7 +122,6 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             viewHolder.ivRetweetedStatus.setVisibility(View.GONE);
 
         }
-
 
         viewHolder.ivProfileImage.setImageResource(0);
         viewHolder.ivMediaImage.setImageResource(0);
@@ -158,7 +156,6 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
 
     @Override
     public int getItemCount() {
-        Log.v("s", Integer.toString(tweets.size()));
         return tweets.size();
     }
 
@@ -176,6 +173,8 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         @BindView(R.id.btnFavorite) ImageView btnFavorite;
         @BindView(R.id.tvNameRetweeted) TextView tvNameRetweeted;
         @BindView(R.id.ivRetweetedStatus) ImageView ivRetweetedStatus;
+        @BindView(R.id.tvRetweetCount) TextView tvRetweetCount;
+        @BindView(R.id.tvFavoriteCount) TextView tvFavoriteCount;
 
 
         public ViewHolder(View itemView) {

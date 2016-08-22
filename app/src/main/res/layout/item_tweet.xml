@@ -122,7 +122,19 @@
             android:src="@drawable/ic_repeat_black_48dp"
             android:id="@+id/btnRetweet"
             android:layout_toRightOf="@id/btnReply"
-            android:layout_marginRight="25dp"
+            />
+        <TextView
+            style="@style/SmallGrayText"
+            android:id="@+id/tvRetweetCount"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@id/btnRetweet"
+            android:layout_alignTop="@+id/btnRetweet"
+            android:layout_alignBottom="@id/btnRetweet"
+            android:layout_centerVertical="true"
+            android:text="8"
+            android:gravity="center"
+            android:layout_marginRight="22dp"
             />
         <ImageButton
             style="@style/ListViewActionItems"
@@ -130,8 +142,20 @@
             android:layout_alignBottom="@id/btnReply"
             android:src="@drawable/ic_favorite_black_48dp"
             android:id="@+id/btnFavorite"
-            android:layout_toRightOf="@id/btnRetweet"
-            android:layout_marginRight="25dp"
+            android:layout_toRightOf="@id/tvRetweetCount"
+            />
+        <TextView
+            style="@style/SmallGrayText"
+            android:id="@+id/tvFavoriteCount"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@id/btnFavorite"
+            android:layout_alignTop="@+id/btnFavorite"
+            android:layout_alignBottom="@id/btnFavorite"
+            android:layout_centerVertical="true"
+            android:text="8"
+            android:gravity="center"
+            android:layout_marginRight="22dp"
             />
         <ImageButton
             style="@style/ListViewActionItems"
@@ -139,7 +163,7 @@
             android:layout_alignBottom="@id/btnReply"
             android:src="@drawable/ic_message_black_48dp"
             android:id="@+id/btnMessage"
-            android:layout_toRightOf="@id/btnFavorite"
+            android:layout_toRightOf="@id/tvFavoriteCount"
             />
     </RelativeLayout>
 </RelativeLayout>
