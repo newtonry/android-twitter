@@ -112,7 +112,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.tweet = tweet;
         viewHolder.tvFavoriteCount.setText(Integer.toString(tweet.getFavoriteCount()));
         viewHolder.tvRetweetCount.setText(Integer.toString(tweet.getRetweetCount()));
-
+    
         if (tweet.getWasRetweetedByUser()) {
             viewHolder.tvNameRetweeted.setVisibility(View.VISIBLE);
             viewHolder.ivRetweetedStatus.setVisibility(View.VISIBLE);
