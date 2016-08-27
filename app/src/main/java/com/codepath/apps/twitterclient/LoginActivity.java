@@ -9,8 +9,6 @@ import com.codepath.apps.twitterclient.models.User;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -37,28 +35,23 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	public void onLoginSuccess() {
 
 		TwitterClient client = new TwitterClient(this);
-		client.getLoggedInUser(new JsonHttpResponseHandler() {
+
+		client.getUserInfo(new JsonHttpResponseHandler() {
 			@Override
-			public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-				try {
-					JSONObject userJson = response.getJSONObject(0);
-					User user = User.fromJSON(userJson);
-					TwitterApplication application = (TwitterApplication) getApplication();
-					application.user = user;
+			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+				TwitterApplication application = (TwitterApplication) getApplication();
+				application.user = User.fromJSON(response);
+			}
 
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-
-
+			@Override
+			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+				super.onFailure(statusCode, headers, responseString, throwable);
 			}
 		});
 
+
 		Intent i = new Intent(this, TimelineActivity.class);
-		 startActivity(i);
-
-
-
+		startActivity(i);
 	}
 
 	// OAuth authentication flow failed, handle the error

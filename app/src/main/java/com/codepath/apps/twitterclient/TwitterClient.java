@@ -7,12 +7,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
-
-import cz.msebera.android.httpclient.Header;
 
 /*
  * 
@@ -39,7 +35,10 @@ public class TwitterClient extends OAuthBaseClient {
 	static String FAVORITE_TWEET = "favorites/create.json";
 	static String RETWEET_TWEET = "statuses/retweet/";
 	static String ACCOUNT_SETTINGS = "account/settings.json";
+	static String VERIFY_CREDENTIALS = "account/verify_credentials.json";
 	static String USER_LOOKUP = "users/lookup.json";
+	static String MENTIONS_TIMELINE = "statuses/mentions_timeline.json";
+	static String USER_TIMELINE = "statuses/user_timeline.json";
 
 
 
@@ -94,26 +93,22 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("id", id);
 		getClient().post(REST_URL + RETWEET_TWEET + id + ".json", params, callback);
 	}
-
-
-	// This is really dumb to get the user. Is there a more direct way?
-	public void getLoggedInUser(final AsyncHttpResponseHandler callback) {
+	
+	public void getUserTimeline(AsyncHttpResponseHandler callback) {
 		RequestParams params = new RequestParams();
-		getClient().post(REST_URL + ACCOUNT_SETTINGS, params, new JsonHttpResponseHandler() {
-			@Override
-			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-				try {
-					String screenName = response.getString("screen_name");
-					RequestParams params = new RequestParams();
-					params.put("screen_name", screenName);
-					getClient().get(REST_URL + USER_LOOKUP, params, callback);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		params.put("count", 25);
+		getClient().get(REST_URL + USER_TIMELINE, params, callback);
+	}
+
+	public void getUserInfo(AsyncHttpResponseHandler callback) {
+		getClient().get(REST_URL + VERIFY_CREDENTIALS, null, callback);
+	}
 
 
+	public void getMentionsTimeline(JsonHttpResponseHandler callback) {
+		RequestParams params = new RequestParams();
+		params.put("count", 25);
+		getClient().get(REST_URL + MENTIONS_TIMELINE, params, callback);
 	}
 
 

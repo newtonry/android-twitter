@@ -31,6 +31,10 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  */
 public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.ViewHolder> {
 
+    public void setTweets(List<Tweet> tweets) {
+        this.tweets = tweets;
+    }
+
     private List<Tweet> tweets;
     private Context context;
 
@@ -112,7 +116,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.tweet = tweet;
         viewHolder.tvFavoriteCount.setText(Integer.toString(tweet.getFavoriteCount()));
         viewHolder.tvRetweetCount.setText(Integer.toString(tweet.getRetweetCount()));
-    
+
         if (tweet.getWasRetweetedByUser()) {
             viewHolder.tvNameRetweeted.setVisibility(View.VISIBLE);
             viewHolder.ivRetweetedStatus.setVisibility(View.VISIBLE);
