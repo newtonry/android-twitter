@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codepath.apps.twitterclient.activities.ProfileActivity">
+    tools:context="com.codepath.apps.twitterclient.activities.ProfileActivity"
+    android:background="@color/twitterWhite"
+    >
 
     <include
         layout="@layout/profile_details"

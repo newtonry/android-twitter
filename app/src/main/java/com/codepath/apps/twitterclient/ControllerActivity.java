@@ -31,8 +31,7 @@ public class ControllerActivity extends AppCompatActivity {
 
     @BindView(R.id.btnNewTweet) ImageButton btnNewTweet;
     @BindView(R.id.viewpager) ViewPager viewPager;
-    @BindView(R.id.tabs)
-    PagerSlidingTabStrip tabStrip;
+    @BindView(R.id.tabs) PagerSlidingTabStrip tabStrip;
 
 
     @Override
@@ -75,7 +74,7 @@ public class ControllerActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
     }
 
-    public void launchComposeView(View view, String prefill) {
+    public void launchComposeView(String prefill) {
         Log.v("log", "launching new tweet");
         Intent i = new Intent(ControllerActivity.this, NewTweetActivity.class);
         i.putExtra("prefill", prefill);
@@ -91,22 +90,16 @@ public class ControllerActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_left, R.anim.no_change);
     }
 
+    @OnClick(R.id.ibProfile)
+    public void launchCurrentUserProfile(View view) {
+        TwitterApplication application = (TwitterApplication) getApplication();
+        launchProfile(application.user);
+    }
 
     public void launchProfile(User user) {
-
         Intent i = new Intent(this, ProfileActivity.class);
-//        i.putExtra("screenName", user.getScreenName());
         i.putExtra("user", Parcels.wrap(user));
         startActivity(i);
-
-
-
-
-//        viewPager.setCurrentItem(2);
-//        ProfileFragment fragment = ProfileFragment.newInstance(user);
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.replace(R.id.fragmentTimeline, fragment);
-//        ft.commit();
     }
 
     public class TweetsPagerAdapter extends FragmentPagerAdapter {
@@ -122,8 +115,6 @@ public class ControllerActivity extends AppCompatActivity {
                 return new HomeTimelineFragment();
             } else if (position == 1) {
                 return new MentionsTimelineFragment();
-//            } else if (position == 2) {
-//                return new ProfileFragment();
             }
 
             return null;
@@ -139,5 +130,4 @@ public class ControllerActivity extends AppCompatActivity {
             return tabTitles[position];
         }
     }
-
 }

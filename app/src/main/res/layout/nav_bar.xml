@@ -17,8 +17,8 @@
 
         <ImageButton
             style="@style/ActionBarImageButton"
-            android:id="@+id/imageButton4"
-            android:src="@drawable/addperson"
+            android:id="@+id/ibProfile"
+            android:src="@drawable/ic_person_black_48dp"
             android:layout_alignParentLeft="true"
             />
 
@@ -28,7 +28,6 @@
             android:src="@drawable/newmessage"
             android:layout_alignParentRight="true"
             />
-
 
         <ImageButton
             style="@style/ActionBarImageButton"

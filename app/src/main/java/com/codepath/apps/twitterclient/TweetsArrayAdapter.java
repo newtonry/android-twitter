@@ -20,6 +20,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,7 +73,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             @Override
             public void onClick(View view) {
                 ControllerActivity act = (ControllerActivity) getContext();
-                act.launchComposeView(view, viewHolder.tweet.getUser().getScreenName());
+                act.launchComposeView(viewHolder.tweet.getUser().getScreenName());
             }
         });
 
@@ -112,6 +113,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.tvName.setText(user.getName());
         viewHolder.tvUserName.setText(user.getScreenName());
         viewHolder.tvBody.setText(body);
+        viewHolder.stylizeBody();
         viewHolder.tvTime.setText(tweet.getTimeDifference());
         viewHolder.tweet = tweet;
 
@@ -220,6 +222,30 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             }
             tvFavoriteCount.setText(Integer.toString(tweet.getFavoriteCount()));
             tvRetweetCount.setText(Integer.toString(tweet.getRetweetCount()));
+        }
+
+
+        public void stylizeBody() {
+            new PatternEditableBuilder().
+                    addPattern(Pattern.compile("\\@(\\w+)"), context.getResources().getColor(R.color.twitterPrimaryBlue),
+                            new PatternEditableBuilder.SpannableClickedListener() {
+                                @Override
+                                public void onSpanClicked(String text) {
+                                    ControllerActivity act = (ControllerActivity) context;
+                                    act.launchComposeView(text);
+                                }
+                            }).into(tvBody);
+
+            new PatternEditableBuilder().
+                    addPattern(Pattern.compile("\\#(\\w+)"), context.getResources().getColor(R.color.twitterPrimaryBlue),
+                            new PatternEditableBuilder.SpannableClickedListener() {
+                                @Override
+                                public void onSpanClicked(String text) {
+                                    ControllerActivity act = (ControllerActivity) context;
+                                    act.launchComposeView(text);
+                                }
+                            }).into(tvBody);
+
         }
 
 
