@@ -43,20 +43,24 @@ public class TweetsListFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tweets_list, container, false);
-        ButterKnife.bind(this, view);
-        lvTweets.setAdapter(adapter);
-        setupRefresher();
-        setupScrollListener();
-        return view;
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         tweets = new ArrayList<>();
         adapter = new TweetsArrayAdapter(getActivity(), tweets);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_tweets_list, container, false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        ButterKnife.bind(this, view);
+        lvTweets.setAdapter(adapter);
+        setupRefresher();
+        setupScrollListener();
     }
 
     public void addAll(ArrayList<Tweet> moreTweets) {

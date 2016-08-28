@@ -1,81 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.codepath.apps.twitterclient.TimelineActivity">
 
-    <RelativeLayout
+    <include
+        layout="@layout/nav_bar"
         android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/basic_bottom_border"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        >
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:id="@+id/ivIcon"
-            android:src="@drawable/twitter_icon"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            />
-
-        <ImageButton
-            style="@style/ActionBarImageButton"
-            android:id="@+id/imageButton4"
-            android:src="@drawable/addperson"
-            android:layout_alignParentLeft="true"
-            />
-
-        <ImageButton
-            style="@style/ActionBarImageButton"
-            android:id="@+id/btnNewTweet"
-            android:src="@drawable/newmessage"
-            android:layout_alignParentRight="true"
-            />
-
-
-        <ImageButton
-            style="@style/ActionBarImageButton"
-            android:id="@+id/btnSearch"
-            android:src="@drawable/search"
-            android:layout_alignTop="@id/btnNewTweet"
-            android:layout_alignBottom="@id/btnNewTweet"
-            android:layout_toLeftOf="@id/btnNewTweet"
-            />
-    </RelativeLayout>
-
-    <com.astuetz.PagerSlidingTabStrip
-        android:id="@+id/tabs"
-        app:pstsShouldExpand="true"
-        app:pstsTextAllCaps="true"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@+id/toolbar"
         />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+
+    <include
+        layout="@layout/action_tabs"
+        android:id="@+id/actionTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:layout_below="@+id/tabs"
+        android:layout_below="@+id/toolbar"
         />
-
 
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="com.codepath.apps.twitterclient.fragments.MentionsTimelineFragment"
+        android:name="com.codepath.apps.twitterclient.fragments.HomeTimelineFragment"
         android:id="@+id/fragmentTimeline"
-        android:layout_below="@+id/viewpager"
+        android:layout_below="@+id/actionTabs"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"

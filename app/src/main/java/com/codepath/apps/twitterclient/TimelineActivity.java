@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.codepath.apps.twitterclient.fragments.HomeTimelineFragment;
 import com.codepath.apps.twitterclient.fragments.MentionsTimelineFragment;
 import com.codepath.apps.twitterclient.fragments.ProfileFragment;
 import com.codepath.apps.twitterclient.models.Tweet;
+import com.codepath.apps.twitterclient.models.User;
 
 import org.parceler.Parcels;
 
@@ -30,7 +32,8 @@ public class TimelineActivity extends AppCompatActivity {
 
     @BindView(R.id.btnNewTweet) ImageButton btnNewTweet;
     @BindView(R.id.viewpager) ViewPager viewPager;
-    @BindView(R.id.tabs) PagerSlidingTabStrip tabStrip;
+    @BindView(R.id.tabs)
+    PagerSlidingTabStrip tabStrip;
 
 
     @Override
@@ -60,7 +63,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         if (resultCode == 200) {
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
-//            fragmentTweetsList.addTweet(tweet);
+            fragmentTweetsList.addTweet(tweet);
         }
     }
 
@@ -85,14 +88,28 @@ public class TimelineActivity extends AppCompatActivity {
         Log.v("log", "launching detailed");
         Intent i = new Intent(TimelineActivity.this, DetailedTweetActivity.class);
         i.putExtra("tweet", Parcels.wrap(tweet));
-
-
         startActivityForResult(i, 100);
         overridePendingTransition(R.anim.slide_left, R.anim.no_change);
     }
 
 
+    public void launchProfile(User user) {
+
+        viewPager.setCurrentItem(2);
+        ProfileFragment fragment = ProfileFragment.newInstance(user);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragmentTimeline, fragment);
+//        Log.v("sdfafsd", "TTTTT");
+        ft.commit();
+    }
+
     public class TweetsPagerAdapter extends FragmentPagerAdapter {
+//        private int tabIcons[] = {
+//                R.drawable.ic_home_black_48dp,
+//                R.drawable.ic_notifications_black_48dp,
+//                R.drawable.ic_message_black_48dp,
+//                R.drawable.ic_person_black_48dp
+//        };
         private String tabTitles[] = {"Home", "Mentions", "Profile"};
 
         public TweetsPagerAdapter(FragmentManager fm) {
@@ -114,6 +131,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
+//            return tabIcons.length;
             return tabTitles.length;
         }
 
@@ -121,6 +139,12 @@ public class TimelineActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return tabTitles[position];
         }
+
+
+//        @Override
+//        public int getPageIconResId(int position) {
+//            return tabIcons[position];
+//        }
     }
 
 }

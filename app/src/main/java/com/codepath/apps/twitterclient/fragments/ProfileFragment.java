@@ -1,7 +1,6 @@
 package com.codepath.apps.twitterclient.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +24,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  */
 public class ProfileFragment extends Fragment {
 
+    View mainView;
     User user;
 
     @BindView(R.id.ivUserBackground) ImageView ivUserBackground;
@@ -35,24 +35,32 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.tvLink) TextView tvLink;
 
 
+    public static ProfileFragment newInstance(User user) {
+        ProfileFragment fragment = new ProfileFragment();
+        fragment.setUser(user);
+        return fragment;
+
+    }
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         TwitterApplication application = (TwitterApplication) getActivity().getApplication();
         user = application.user;
         super.onCreate(savedInstanceState);
     }
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (mainView == null) {
+            mainView = inflater.inflate(R.layout.fragment_profile, container, false);
+        }
+        return mainView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
-
         setupFields();
-
-
-        return view;
     }
 
     private void setupFields() {
@@ -71,10 +79,10 @@ public class ProfileFragment extends Fragment {
         tvUserName.setText(user.getName());
         tvUserScreenName.setText("@" + user.getScreenName());
         tvDescription.setText(user.getDescription());
-
-
-
-
     }
 
+    public void setUser(User user) {
+
+        this.user = user;
+    }
 }

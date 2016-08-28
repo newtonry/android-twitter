@@ -1,0 +1,41 @@
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/basic_bottom_border"
+        >
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:id="@+id/ivIcon"
+            android:src="@drawable/twitter_icon"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            />
+
+        <ImageButton
+            style="@style/ActionBarImageButton"
+            android:id="@+id/imageButton4"
+            android:src="@drawable/addperson"
+            android:layout_alignParentLeft="true"
+            />
+
+        <ImageButton
+            style="@style/ActionBarImageButton"
+            android:id="@+id/btnNewTweet"
+            android:src="@drawable/newmessage"
+            android:layout_alignParentRight="true"
+            />
+
+
+        <ImageButton
+            style="@style/ActionBarImageButton"
+            android:id="@+id/btnSearch"
+            android:src="@drawable/search"
+            android:layout_alignTop="@id/btnNewTweet"
+            android:layout_alignBottom="@id/btnNewTweet"
+            android:layout_toLeftOf="@id/btnNewTweet"
+            />
+    </RelativeLayout>

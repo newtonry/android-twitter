@@ -30,8 +30,6 @@ public class UserTimelineFragment extends TweetsListFragment {
     }
 
     private void populateTimeline() {
-
-
         TwitterApplication application = (TwitterApplication) getActivity().getApplication();
         user = application.user;
 
@@ -49,7 +47,5 @@ public class UserTimelineFragment extends TweetsListFragment {
             }
         }, user.getScreenName());
     }
-
-
 
 }

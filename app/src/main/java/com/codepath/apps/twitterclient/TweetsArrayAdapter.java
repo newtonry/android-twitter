@@ -31,6 +31,11 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  */
 public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.ViewHolder> {
 
+//    private OnProfileSelectedListener listener;
+//    public interface OnProfileSelectedListener {
+//        public void onProfileSelected(User user);
+//    }
+
     public void setTweets(List<Tweet> tweets) {
         this.tweets = tweets;
     }
@@ -97,6 +102,16 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
                         viewHolder.btnRetweet.setColorFilter(parent.getContext().getResources().getColor(R.color.twitterRetweetGreen));
                     }
                 }, viewHolder.tweet.getUid());
+            }
+        });
+
+        viewHolder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.v("sdfafsd", "VVVVVVVVVV");
+                TimelineActivity act = (TimelineActivity) getContext();
+                act.launchProfile(viewHolder.tweet.getUser());
             }
         });
 
@@ -194,9 +209,5 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             tvTime.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neue LT Pro 55 Roman.ttf"));
             tvNameRetweeted.setTypeface(Typeface.createFromAsset(assets, "Helvetica Neue LT Pro 55 Roman.ttf"));
         }
-
     }
-
-
-
 }
