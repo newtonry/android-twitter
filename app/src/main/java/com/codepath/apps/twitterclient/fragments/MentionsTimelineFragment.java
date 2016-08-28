@@ -27,16 +27,11 @@ public class MentionsTimelineFragment extends TweetsListFragment {
         populateTimeline();
     }
 
-
-
-
     private void populateTimeline() {
         client.getMentionsTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                Log.v("fetching", "dasfasdfdsfdss");
                 addAll(Tweet.fromJSONArray(json));
-
             }
 
             @Override
@@ -44,5 +39,19 @@ public class MentionsTimelineFragment extends TweetsListFragment {
                 Log.d("test", errorResponse.toString());
             }
         });
+    }
+    public void fetchMore() {
+        Log.v("dd","GFETTING MORE FOR HOME MENTIONS");
+        client.getMentionsTimeline(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                addAll(Tweet.fromJSONArray(json));
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("test", errorResponse.toString());
+            }
+        }, getLastId());
     }
 }

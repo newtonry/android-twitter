@@ -33,12 +33,15 @@ public class TwitterClient extends OAuthBaseClient {
 	static String NEW_STATUS_URL = "statuses/update.json";
 	static String TWEET_BY_ID = "statuses/show.json";
 	static String FAVORITE_TWEET = "favorites/create.json";
+	static String UNFAVORITE_TWEET = "favorites/destroy.json";
 	static String RETWEET_TWEET = "statuses/retweet/";
+	static String UNRETWEET_TWEET = "statuses/unretweet/";
 	static String ACCOUNT_SETTINGS = "account/settings.json";
 	static String VERIFY_CREDENTIALS = "account/verify_credentials.json";
 	static String USER_LOOKUP = "users/lookup.json";
 	static String MENTIONS_TIMELINE = "statuses/mentions_timeline.json";
 	static String USER_TIMELINE = "statuses/user_timeline.json";
+
 
 
 
@@ -88,15 +91,36 @@ public class TwitterClient extends OAuthBaseClient {
 		getClient().post(REST_URL + FAVORITE_TWEET, params, callback);
 	}
 
+	public void unfavoriteTweet(AsyncHttpResponseHandler callback, Long id) {
+		RequestParams params = new RequestParams();
+		params.put("id", id);
+		getClient().post(REST_URL + UNFAVORITE_TWEET, params, callback);
+	}
+
+
 	public void retweetTweet(AsyncHttpResponseHandler callback, Long id) {
 		RequestParams params = new RequestParams();
 		params.put("id", id);
 		getClient().post(REST_URL + RETWEET_TWEET + id + ".json", params, callback);
 	}
 
+	public void unretweetTweet(AsyncHttpResponseHandler callback, Long id) {
+		RequestParams params = new RequestParams();
+		params.put("id", id);
+		getClient().post(REST_URL + UNRETWEET_TWEET + id + ".json", params, callback);
+	}
+
 	public void getUserTimeline(AsyncHttpResponseHandler callback, String screenName) {
 		RequestParams params = new RequestParams();
 		params.put("screen_name", screenName);
+		params.put("count", 25);
+		getClient().get(REST_URL + USER_TIMELINE, params, callback);
+	}
+
+	public void getUserTimeline(AsyncHttpResponseHandler callback, String screenName, Long maxId) {
+		RequestParams params = new RequestParams();
+		params.put("screen_name", screenName);
+		params.put("max_id", maxId);
 		params.put("count", 25);
 		getClient().get(REST_URL + USER_TIMELINE, params, callback);
 	}
@@ -115,6 +139,13 @@ public class TwitterClient extends OAuthBaseClient {
 	public void getMentionsTimeline(JsonHttpResponseHandler callback) {
 		RequestParams params = new RequestParams();
 		params.put("count", 25);
+		getClient().get(REST_URL + MENTIONS_TIMELINE, params, callback);
+	}
+
+	public void getMentionsTimeline(JsonHttpResponseHandler callback, Long maxId) {
+		RequestParams params = new RequestParams();
+		params.put("count", 25);
+		params.put("max_id", maxId);
 		getClient().get(REST_URL + MENTIONS_TIMELINE, params, callback);
 	}
 

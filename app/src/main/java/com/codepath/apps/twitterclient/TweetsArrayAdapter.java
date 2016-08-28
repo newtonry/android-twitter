@@ -23,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -75,20 +76,6 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             }
         });
 
-        viewHolder.btnFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TwitterClient client = new TwitterClient(parent.getContext());
-                client.favoriteTweet(new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Log.v("debug", "favorited");
-                        Toast.makeText(context, "Favorited!", Toast.LENGTH_SHORT).show();
-                        viewHolder.btnFavorite.setColorFilter(parent.getContext().getResources().getColor(android.R.color.holo_red_dark));
-                    }
-                }, viewHolder.tweet.getUid());
-            }
-        });
 
         viewHolder.btnRetweet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,8 +95,6 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Log.v("sdfafsd", "VVVVVVVVVV");
                 ControllerActivity act = (ControllerActivity) getContext();
                 act.launchProfile(viewHolder.tweet.getUser());
             }
@@ -129,8 +114,6 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.tvBody.setText(body);
         viewHolder.tvTime.setText(tweet.getTimeDifference());
         viewHolder.tweet = tweet;
-        viewHolder.tvFavoriteCount.setText(Integer.toString(tweet.getFavoriteCount()));
-        viewHolder.tvRetweetCount.setText(Integer.toString(tweet.getRetweetCount()));
 
         if (tweet.getWasRetweetedByUser()) {
             viewHolder.tvNameRetweeted.setVisibility(View.VISIBLE);
@@ -159,16 +142,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             viewHolder.ivMediaImage.setVisibility(View.GONE);
         }
 
-        if (tweet.isFavorited()) {
-            viewHolder.btnFavorite.setColorFilter(context.getResources().getColor(android.R.color.holo_red_dark));
-        } else {
-            viewHolder.btnFavorite.setColorFilter(context.getResources().getColor(R.color.twitterLightGray));
-        }
-        if (tweet.isRetweeted()) {
-            viewHolder.btnRetweet.setColorFilter(context.getResources().getColor(R.color.twitterRetweetGreen));
-        } else {
-            viewHolder.btnRetweet.setColorFilter(context.getResources().getColor(R.color.twitterLightGray));
-        }
+        viewHolder.renderFavoritesAndRetweets();
 
         viewHolder.setupFonts(getContext());
     }
@@ -180,6 +154,8 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+
+        Context context;
         Tweet tweet;
         @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
         @BindView(R.id.tvUserName) TextView tvUserName;
@@ -199,7 +175,53 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            context = itemView.getContext();
         }
+
+        @OnClick(R.id.btnFavorite)
+        public void onFavorite(View view) {
+            TwitterClient client = client = TwitterApplication.getRestClient();
+            if (tweet.isFavorited()) {
+                client.unfavoriteTweet(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Log.v("debug", "favorited");
+                        Toast.makeText(context, "Unfavorited!", Toast.LENGTH_SHORT).show();
+                        tweet = Tweet.fromJSON(response);
+                        btnFavorite.setColorFilter(context.getResources().getColor(R.color.twitterLightGray));
+                        renderFavoritesAndRetweets();
+                    }
+                }, tweet.getUid());
+            } else {
+                client.favoriteTweet(new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Log.v("debug", "favorited");
+                        tweet = Tweet.fromJSON(response);
+                        Toast.makeText(context, "Favorited!", Toast.LENGTH_SHORT).show();
+                        btnFavorite.setColorFilter(context.getResources().getColor(android.R.color.holo_red_dark));
+                        renderFavoritesAndRetweets();
+                    }
+                }, tweet.getUid());
+            }
+        }
+
+        // TODO There must be a more legit way to do this by passing it up to the adapter?
+        public void renderFavoritesAndRetweets() {
+            if (tweet.isFavorited()) {
+                btnFavorite.setColorFilter(context.getResources().getColor(android.R.color.holo_red_dark));
+            } else {
+                btnFavorite.setColorFilter(context.getResources().getColor(R.color.twitterLightGray));
+            }
+            if (tweet.isRetweeted()) {
+                btnRetweet.setColorFilter(context.getResources().getColor(R.color.twitterRetweetGreen));
+            } else {
+                btnRetweet.setColorFilter(context.getResources().getColor(R.color.twitterLightGray));
+            }
+            tvFavoriteCount.setText(Integer.toString(tweet.getFavoriteCount()));
+            tvRetweetCount.setText(Integer.toString(tweet.getRetweetCount()));
+        }
+
 
         private void setupFonts(Context context) {
             AssetManager assets = context.getAssets();

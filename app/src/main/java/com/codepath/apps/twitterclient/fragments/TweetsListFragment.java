@@ -114,23 +114,16 @@ public class TweetsListFragment extends Fragment {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 Log.v("dd","GFETTING MORE");
-//                client.getHomeTimeline(new JsonHttpResponseHandler() {
-//                    @Override
-//                    public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-//                        addAll(Tweet.fromJSONArray(json));
-//                    }
-//
-//                    @Override
-//                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                        Log.d("test", errorResponse.toString());
-//                    }
-//                }, getLastId());
+                fetchMore();
             }
         });
     }
 
+    public void fetchMore() {}
 
-    private Long getLastId() {
+    public void refreshTweets() {}
+
+    public Long getLastId() {
         return tweets.get(tweets.size() - 1).getUid();
     }
 

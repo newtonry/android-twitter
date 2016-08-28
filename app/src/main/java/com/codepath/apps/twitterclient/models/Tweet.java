@@ -68,7 +68,13 @@ public class Tweet {
         return wasRetweetedByUser;
     }
 
+    public void setFavorited(Boolean favorited) {
+        this.favorited = favorited;
+    }
 
+    public void setRetweeted(Boolean retweeted) {
+        this.retweeted = retweeted;
+    }
 
     public Tweet() {
 

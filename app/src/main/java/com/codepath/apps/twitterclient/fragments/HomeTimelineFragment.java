@@ -25,8 +25,6 @@ public class HomeTimelineFragment extends TweetsListFragment {
         super.onCreate(savedInstanceState);
         client = TwitterApplication.getRestClient();
         populateTimeline();
-
-
     }
 
     private void populateTimeline() {
@@ -43,4 +41,22 @@ public class HomeTimelineFragment extends TweetsListFragment {
             }
         });
     }
+
+    public void fetchMore() {
+        Log.v("dd","GFETTING MORE FOR HOME TIMELINE");
+        client.getHomeTimeline(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                addAll(Tweet.fromJSONArray(json));
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.d("test", errorResponse.toString());
+            }
+        }, getLastId());
+    }
+
+    public void refreshTweets() {}
+
 }
