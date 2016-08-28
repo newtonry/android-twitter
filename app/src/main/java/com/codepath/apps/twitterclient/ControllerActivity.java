@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,9 +13,9 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.codepath.apps.twitterclient.activities.ProfileActivity;
 import com.codepath.apps.twitterclient.fragments.HomeTimelineFragment;
 import com.codepath.apps.twitterclient.fragments.MentionsTimelineFragment;
-import com.codepath.apps.twitterclient.fragments.ProfileFragment;
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.codepath.apps.twitterclient.models.User;
 
@@ -26,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TimelineActivity extends AppCompatActivity {
+public class ControllerActivity extends AppCompatActivity {
 
     private HomeTimelineFragment fragmentTweetsList;
 
@@ -70,7 +69,7 @@ public class TimelineActivity extends AppCompatActivity {
     @OnClick(R.id.btnNewTweet)
     public void launchComposeView(View view) {
         Log.v("log", "launching new tweet");
-        Intent i = new Intent(TimelineActivity.this, NewTweetActivity.class);
+        Intent i = new Intent(ControllerActivity.this, NewTweetActivity.class);
         i.putExtra("prefill", "");
         startActivityForResult(i, 200);
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
@@ -78,7 +77,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     public void launchComposeView(View view, String prefill) {
         Log.v("log", "launching new tweet");
-        Intent i = new Intent(TimelineActivity.this, NewTweetActivity.class);
+        Intent i = new Intent(ControllerActivity.this, NewTweetActivity.class);
         i.putExtra("prefill", prefill);
         startActivityForResult(i, 200);
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
@@ -86,7 +85,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     public void launchDetailedActivity(Tweet tweet) {
         Log.v("log", "launching detailed");
-        Intent i = new Intent(TimelineActivity.this, DetailedTweetActivity.class);
+        Intent i = new Intent(ControllerActivity.this, DetailedTweetActivity.class);
         i.putExtra("tweet", Parcels.wrap(tweet));
         startActivityForResult(i, 100);
         overridePendingTransition(R.anim.slide_left, R.anim.no_change);
@@ -95,22 +94,23 @@ public class TimelineActivity extends AppCompatActivity {
 
     public void launchProfile(User user) {
 
-        viewPager.setCurrentItem(2);
-        ProfileFragment fragment = ProfileFragment.newInstance(user);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragmentTimeline, fragment);
-//        Log.v("sdfafsd", "TTTTT");
-        ft.commit();
+        Intent i = new Intent(this, ProfileActivity.class);
+//        i.putExtra("screenName", user.getScreenName());
+        i.putExtra("user", Parcels.wrap(user));
+        startActivity(i);
+
+
+
+
+//        viewPager.setCurrentItem(2);
+//        ProfileFragment fragment = ProfileFragment.newInstance(user);
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.replace(R.id.fragmentTimeline, fragment);
+//        ft.commit();
     }
 
     public class TweetsPagerAdapter extends FragmentPagerAdapter {
-//        private int tabIcons[] = {
-//                R.drawable.ic_home_black_48dp,
-//                R.drawable.ic_notifications_black_48dp,
-//                R.drawable.ic_message_black_48dp,
-//                R.drawable.ic_person_black_48dp
-//        };
-        private String tabTitles[] = {"Home", "Mentions", "Profile"};
+        private String tabTitles[] = {"Home", "Mentions"};
 
         public TweetsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -122,8 +122,8 @@ public class TimelineActivity extends AppCompatActivity {
                 return new HomeTimelineFragment();
             } else if (position == 1) {
                 return new MentionsTimelineFragment();
-            } else if (position == 2) {
-                return new ProfileFragment();
+//            } else if (position == 2) {
+//                return new ProfileFragment();
             }
 
             return null;
@@ -131,7 +131,6 @@ public class TimelineActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-//            return tabIcons.length;
             return tabTitles.length;
         }
 
@@ -139,12 +138,6 @@ public class TimelineActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return tabTitles[position];
         }
-
-
-//        @Override
-//        public int getPageIconResId(int position) {
-//            return tabIcons[position];
-//        }
     }
 
 }

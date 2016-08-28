@@ -105,6 +105,12 @@ public class TwitterClient extends OAuthBaseClient {
 		getClient().get(REST_URL + VERIFY_CREDENTIALS, null, callback);
 	}
 
+	public void getUserInfo(AsyncHttpResponseHandler callback, String screenName) {
+		RequestParams params = new RequestParams();
+		params.put("screen_name", screenName);
+		getClient().get(REST_URL + VERIFY_CREDENTIALS, null, callback);
+	}
+
 
 	public void getMentionsTimeline(JsonHttpResponseHandler callback) {
 		RequestParams params = new RequestParams();

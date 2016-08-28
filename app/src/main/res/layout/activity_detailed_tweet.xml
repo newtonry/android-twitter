@@ -141,70 +141,14 @@
             />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <include
+        layout="@layout/actions_count"
+        android:id="@+id/rvActionCounts"
         android:layout_height="50dp"
-        android:layout_below="@id/rvDateRow"
         android:layout_alignParentRight="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/basic_bottom_border"
-        android:id="@+id/rvActionCounts"
-        android:padding="16dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="7"
-            android:textColor="@color/twitterBlack"
-            android:layout_centerVertical="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/tvRetweetCount"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/retweets_caps"
-            android:textColor="@color/twitterLightGray"
-            android:layout_centerVertical="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            android:layout_toRightOf="@id/tvRetweetCount"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/tvRetweets"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="7"
-            android:textColor="@color/twitterBlack"
-            android:layout_centerVertical="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/tvRetweets"
-            android:id="@+id/tvFavoriteCount"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/favorites_caps"
-            android:textColor="@color/twitterLightGray"
-            android:layout_centerVertical="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            android:layout_toRightOf="@id/tvFavoriteCount"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/tvFavorites"
-            />
-    </RelativeLayout>
+        android:layout_below="@id/rvDateRow"
+        android:layout_width="match_parent" />
 
     <RelativeLayout
         android:layout_width="match_parent"

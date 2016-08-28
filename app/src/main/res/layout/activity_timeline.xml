@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codepath.apps.twitterclient.TimelineActivity">
+    tools:context=".ControllerActivity">
 
     <include
         layout="@layout/nav_bar"

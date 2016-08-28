@@ -40,9 +40,10 @@
                     android:scheme="oauth" />
             </intent-filter>
         </activity>
-        <activity android:name=".TimelineActivity" />
+        <activity android:name=".ControllerActivity" />
         <activity android:name=".NewTweetActivity" />
         <activity android:name=".DetailedTweetActivity" />
+        <activity android:name=".activities.ProfileActivity"></activity>
     </application>
 
 </manifest>

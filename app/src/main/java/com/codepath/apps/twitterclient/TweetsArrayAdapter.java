@@ -62,7 +62,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         tweetView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimelineActivity act = (TimelineActivity) getContext();
+                ControllerActivity act = (ControllerActivity) getContext();
                 act.launchDetailedActivity(viewHolder.tweet);
             }
         });
@@ -70,7 +70,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.btnReply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimelineActivity act = (TimelineActivity) getContext();
+                ControllerActivity act = (ControllerActivity) getContext();
                 act.launchComposeView(view, viewHolder.tweet.getUser().getScreenName());
             }
         });
@@ -110,7 +110,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
             public void onClick(View view) {
 
                 Log.v("sdfafsd", "VVVVVVVVVV");
-                TimelineActivity act = (TimelineActivity) getContext();
+                ControllerActivity act = (ControllerActivity) getContext();
                 act.launchProfile(viewHolder.tweet.getUser());
             }
         });

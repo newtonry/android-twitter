@@ -50,7 +50,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 		});
 
 
-		Intent i = new Intent(this, TimelineActivity.class);
+		Intent i = new Intent(this, ControllerActivity.class);
 		startActivity(i);
 	}
 
