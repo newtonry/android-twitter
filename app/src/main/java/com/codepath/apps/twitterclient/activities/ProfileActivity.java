@@ -2,11 +2,11 @@ package com.codepath.apps.twitterclient.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.twitterclient.BaseTwitterActivity;
 import com.codepath.apps.twitterclient.R;
 import com.codepath.apps.twitterclient.fragments.UserTimelineFragment;
 import com.codepath.apps.twitterclient.models.User;
@@ -18,10 +18,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseTwitterActivity {
 
     User user;
-
     @BindView(R.id.ivUserBackground) ImageView ivUserBackground;
     @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
     @BindView(R.id.tvUserName) TextView tvUserName;
@@ -30,7 +29,6 @@ public class ProfileActivity extends AppCompatActivity {
     @BindView(R.id.tvLink) TextView tvLink;
     @BindView(R.id.tvFollowersCount) TextView tvFollowersCount;
     @BindView(R.id.tvFollowingCount) TextView tvFollowingCount;
-
 
 
     @Override
@@ -50,7 +48,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-
     private void setupFields() {
         Picasso.with(this)
                 .load(user.getProfileBackgroundImageUrl())
@@ -67,5 +64,4 @@ public class ProfileActivity extends AppCompatActivity {
         tvFollowersCount.setText(Integer.toString(user.getFollowersCount()));
         tvFollowingCount.setText(Integer.toString(user.getFollowingCount()));
     }
-
 }

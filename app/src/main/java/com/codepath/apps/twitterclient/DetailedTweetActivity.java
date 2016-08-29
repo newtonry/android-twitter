@@ -1,7 +1,6 @@
 package com.codepath.apps.twitterclient;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -12,12 +11,14 @@ import com.codepath.apps.twitterclient.models.Tweet;
 
 import org.parceler.Parcels;
 
+import java.util.regex.Pattern;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 
-public class DetailedTweetActivity extends AppCompatActivity {
+public class DetailedTweetActivity extends BaseTwitterActivity {
 
     Tweet tweet;
 
@@ -38,24 +39,6 @@ public class DetailedTweetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_tweet);
         ButterKnife.bind(this);
-
-//        Intent i = getIntent();
-//        Long tweetId = i.getLongExtra("tweetId", 0);
-
-//        TwitterClient client = new TwitterClient(this);
-
-//        client.getTweetById(new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                tweet = Tweet.fromJSON(response);
-//                render();
-//            }
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                Log.d("test", errorResponse.toString());
-//            }
-//        }, tweetId);
-
         tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet"));
         render();
     }
@@ -67,8 +50,6 @@ public class DetailedTweetActivity extends AppCompatActivity {
         tvFavoriteCount.setText(Integer.toString(tweet.getFavoriteCount()));
         tvRetweetCount.setText(Integer.toString(tweet.getRetweetCount()));
         tvDatePosted.setText(CustomUtils.getDateTimeString(tweet.getCreatedAt()));
-
-
 
         Glide.with(this).load(tweet.getUser().getProfileImageUrl())
                 .bitmapTransform(new RoundedCornersTransformation(this, 3, 0))
@@ -87,7 +68,27 @@ public class DetailedTweetActivity extends AppCompatActivity {
             btnRetweet.setColorFilter(getResources().getColor(R.color.twitterRetweetGreen));
         }
 
+        stylizeBody();
+    }
 
+    public void stylizeBody() {
+        new PatternEditableBuilder().
+                addPattern(Pattern.compile("\\@(\\w+)"), getResources().getColor(R.color.twitterPrimaryBlue),
+                        new PatternEditableBuilder.SpannableClickedListener() {
+                            @Override
+                            public void onSpanClicked(String text) {
+                                launchComposeView(text);
+                            }
+                        }).into(tvBody);
+
+        new PatternEditableBuilder().
+                addPattern(Pattern.compile("\\#(\\w+)"), getResources().getColor(R.color.twitterPrimaryBlue),
+                        new PatternEditableBuilder.SpannableClickedListener() {
+                            @Override
+                            public void onSpanClicked(String text) {
+                                launchComposeView(text);
+                            }
+                        }).into(tvBody);
     }
 
     public void closeDetailedTweetActivity(View view) {

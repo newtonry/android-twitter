@@ -47,6 +47,7 @@ public class TweetsListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         tweets = new ArrayList<>();
         adapter = new TweetsArrayAdapter(getActivity(), tweets);
+        adapter.listener = (TweetsArrayAdapter.TweetActionListener) getActivity();
         super.onCreate(savedInstanceState);
     }
 

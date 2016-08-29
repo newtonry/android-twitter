@@ -33,13 +33,11 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  */
 public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.ViewHolder> {
 
-//    private OnProfileSelectedListener listener;
-//    public interface OnProfileSelectedListener {
-//        public void onProfileSelected(User user);
-//    }
-
-    public void setTweets(List<Tweet> tweets) {
-        this.tweets = tweets;
+    public TweetActionListener listener;
+    public interface TweetActionListener {
+        public void launchComposeView(String text);
+        public void launchProfile(User user);
+        public void launchDetailedActivity(Tweet tweet);
     }
 
     private List<Tweet> tweets;
@@ -61,19 +59,18 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         View tweetView = LayoutInflater.from(context).inflate(R.layout.item_tweet, parent, false);
         final ViewHolder viewHolder = new ViewHolder(tweetView);
 
+
         tweetView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ControllerActivity act = (ControllerActivity) getContext();
-                act.launchDetailedActivity(viewHolder.tweet);
+                listener.launchDetailedActivity(viewHolder.tweet);
             }
         });
 
         viewHolder.btnReply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ControllerActivity act = (ControllerActivity) getContext();
-                act.launchComposeView(viewHolder.tweet.getUser().getScreenName());
+                listener.launchComposeView(viewHolder.tweet.getUser().getScreenName());
             }
         });
 
@@ -96,8 +93,7 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
         viewHolder.ivProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ControllerActivity act = (ControllerActivity) getContext();
-                act.launchProfile(viewHolder.tweet.getUser());
+                listener.launchProfile(viewHolder.tweet.getUser());
             }
         });
 
@@ -245,7 +241,6 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetsArrayAdapter.
                                     act.launchComposeView(text);
                                 }
                             }).into(tvBody);
-
         }
 
 

@@ -6,18 +6,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.codepath.apps.twitterclient.activities.ProfileActivity;
 import com.codepath.apps.twitterclient.fragments.HomeTimelineFragment;
 import com.codepath.apps.twitterclient.fragments.MentionsTimelineFragment;
 import com.codepath.apps.twitterclient.models.Tweet;
-import com.codepath.apps.twitterclient.models.User;
 
 import org.parceler.Parcels;
 
@@ -25,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ControllerActivity extends AppCompatActivity {
+public class ControllerActivity extends BaseTwitterActivity {
 
     private HomeTimelineFragment fragmentTweetsList;
 
@@ -74,32 +71,11 @@ public class ControllerActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_up, R.anim.no_change);
     }
 
-    public void launchComposeView(String prefill) {
-        Log.v("log", "launching new tweet");
-        Intent i = new Intent(ControllerActivity.this, NewTweetActivity.class);
-        i.putExtra("prefill", prefill);
-        startActivityForResult(i, 200);
-        overridePendingTransition(R.anim.slide_up, R.anim.no_change);
-    }
-
-    public void launchDetailedActivity(Tweet tweet) {
-        Log.v("log", "launching detailed");
-        Intent i = new Intent(ControllerActivity.this, DetailedTweetActivity.class);
-        i.putExtra("tweet", Parcels.wrap(tweet));
-        startActivityForResult(i, 100);
-        overridePendingTransition(R.anim.slide_left, R.anim.no_change);
-    }
 
     @OnClick(R.id.ibProfile)
     public void launchCurrentUserProfile(View view) {
         TwitterApplication application = (TwitterApplication) getApplication();
         launchProfile(application.user);
-    }
-
-    public void launchProfile(User user) {
-        Intent i = new Intent(this, ProfileActivity.class);
-        i.putExtra("user", Parcels.wrap(user));
-        startActivity(i);
     }
 
     public class TweetsPagerAdapter extends FragmentPagerAdapter {
