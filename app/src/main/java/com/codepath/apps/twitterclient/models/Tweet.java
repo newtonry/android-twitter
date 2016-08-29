@@ -2,7 +2,7 @@ package com.codepath.apps.twitterclient.models;
 
 import android.util.Log;
 
-import com.codepath.apps.twitterclient.CustomUtils;
+import com.codepath.apps.twitterclient.utils.CustomUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;

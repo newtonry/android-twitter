@@ -7,7 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.twitterclient.activities.BaseTwitterActivity;
 import com.codepath.apps.twitterclient.models.Tweet;
+import com.codepath.apps.twitterclient.utils.CustomUtils;
+import com.codepath.apps.twitterclient.utils.PatternEditableBuilder;
 
 import org.parceler.Parcels;
 

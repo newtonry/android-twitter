@@ -11,9 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.codepath.apps.twitterclient.EndlessRecyclerViewScrollListener;
+import com.codepath.apps.twitterclient.utils.EndlessRecyclerViewScrollListener;
 import com.codepath.apps.twitterclient.R;
-import com.codepath.apps.twitterclient.TweetsArrayAdapter;
+import com.codepath.apps.twitterclient.adapters.TweetsArrayAdapter;
 import com.codepath.apps.twitterclient.TwitterClient;
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;

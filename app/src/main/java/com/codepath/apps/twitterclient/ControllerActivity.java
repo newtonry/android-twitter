@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.codepath.apps.twitterclient.activities.BaseTwitterActivity;
 import com.codepath.apps.twitterclient.fragments.HomeTimelineFragment;
 import com.codepath.apps.twitterclient.fragments.MentionsTimelineFragment;
 import com.codepath.apps.twitterclient.models.Tweet;

@@ -1,10 +1,13 @@
-package com.codepath.apps.twitterclient;
+package com.codepath.apps.twitterclient.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.codepath.apps.twitterclient.activities.ProfileActivity;
+import com.codepath.apps.twitterclient.DetailedTweetActivity;
+import com.codepath.apps.twitterclient.NewTweetActivity;
+import com.codepath.apps.twitterclient.R;
+import com.codepath.apps.twitterclient.adapters.TweetsArrayAdapter;
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.codepath.apps.twitterclient.models.User;
 
