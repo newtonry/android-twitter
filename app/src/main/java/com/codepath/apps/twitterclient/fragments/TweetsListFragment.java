@@ -74,6 +74,7 @@ public class TweetsListFragment extends Fragment {
     public void addTweet(Tweet tweet) {
         tweets.add(0, tweet);
         adapter.notifyDataSetChanged();
+
     }
 
 
@@ -121,8 +122,6 @@ public class TweetsListFragment extends Fragment {
     }
 
     public void fetchMore() {}
-
-    public void refreshTweets() {}
 
     public Long getLastId() {
         return tweets.get(tweets.size() - 1).getUid();

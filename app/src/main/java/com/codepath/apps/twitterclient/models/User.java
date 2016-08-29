@@ -20,6 +20,7 @@ public class User {
     String description;
     int followersCount;
     int followingCount;
+    String link;
 
     public String getDescription() {
         return description;
@@ -35,6 +36,10 @@ public class User {
 
     public int getFollowingCount() {
         return followingCount;
+    }
+
+    public String getLink() {
+        return link;
     }
 
     public String getName() {
@@ -65,16 +70,12 @@ public class User {
             user.uid = jsonObject.getLong("id");
             user.screenName = jsonObject.getString("screen_name");
             user.profileImageUrl = jsonObject.getString("profile_image_url");
-//            user.profileBackgroundImageUrl = "https://pbs.twimg.com/profile_banners/14342094/1369149678/600x200";
             String imgString = jsonObject.getString("profile_banner_url");
-
-
 
             user.profileBackgroundImageUrl = imgString + "/600x200";
             user.followersCount = jsonObject.getInt("followers_count");
-            user.followingCount = jsonObject.getInt("following");
-
-            // TODO add link
+            user.followingCount = jsonObject.getInt("friends_count");
+            user.link = jsonObject.getString("url");
 
 
         } catch (JSONException e) {

@@ -16,7 +16,6 @@
         android:layout_alignParentRight="true"
         />
 
-
     <include
         layout="@layout/action_tabs"
         android:id="@+id/actionTabs"
@@ -46,6 +45,4 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         />
-
-
 </RelativeLayout>

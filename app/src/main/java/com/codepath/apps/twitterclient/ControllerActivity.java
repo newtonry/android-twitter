@@ -24,8 +24,6 @@ import butterknife.OnClick;
 
 public class ControllerActivity extends BaseTwitterActivity {
 
-    private HomeTimelineFragment fragmentTweetsList;
-
     @BindView(R.id.btnNewTweet) ImageButton btnNewTweet;
     @BindView(R.id.viewpager) ViewPager viewPager;
     @BindView(R.id.tabs) PagerSlidingTabStrip tabStrip;
@@ -57,8 +55,14 @@ public class ControllerActivity extends BaseTwitterActivity {
         }
 
         if (resultCode == 200) {
-            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
-            fragmentTweetsList.addTweet(tweet);
+            if (getSupportFragmentManager().findFragmentById(R.id.fragmentTimeline) instanceof HomeTimelineFragment) {
+                Log.v("gad", "gad");
+                HomeTimelineFragment currentFragment = (HomeTimelineFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentTimeline);
+                Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+                currentFragment.addTweet(tweet);
+            } else {
+                Log.v("sad", "sad");
+            }
         }
     }
 

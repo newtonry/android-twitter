@@ -36,13 +36,9 @@ public class TwitterClient extends OAuthBaseClient {
 	static String UNFAVORITE_TWEET = "favorites/destroy.json";
 	static String RETWEET_TWEET = "statuses/retweet/";
 	static String UNRETWEET_TWEET = "statuses/unretweet/";
-	static String ACCOUNT_SETTINGS = "account/settings.json";
 	static String VERIFY_CREDENTIALS = "account/verify_credentials.json";
-	static String USER_LOOKUP = "users/lookup.json";
 	static String MENTIONS_TIMELINE = "statuses/mentions_timeline.json";
 	static String USER_TIMELINE = "statuses/user_timeline.json";
-
-
 
 
 
@@ -77,12 +73,6 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("status", status);
 		getClient().post(REST_URL + NEW_STATUS_URL, params, callback);
 
-	}
-
-	public void getTweetById(AsyncHttpResponseHandler callback, Long id) {
-		RequestParams params = new RequestParams();
-		params.put("id", id);
-		getClient().get(REST_URL + TWEET_BY_ID, params, callback);
 	}
 
 	public void favoriteTweet(AsyncHttpResponseHandler callback, Long id) {
@@ -128,13 +118,6 @@ public class TwitterClient extends OAuthBaseClient {
 	public void getUserInfo(AsyncHttpResponseHandler callback) {
 		getClient().get(REST_URL + VERIFY_CREDENTIALS, null, callback);
 	}
-
-	public void getUserInfo(AsyncHttpResponseHandler callback, String screenName) {
-		RequestParams params = new RequestParams();
-		params.put("screen_name", screenName);
-		getClient().get(REST_URL + VERIFY_CREDENTIALS, null, callback);
-	}
-
 
 	public void getMentionsTimeline(JsonHttpResponseHandler callback) {
 		RequestParams params = new RequestParams();
